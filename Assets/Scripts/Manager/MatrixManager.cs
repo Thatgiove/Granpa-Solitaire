@@ -1,31 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 
 public class MatrixManager : MonoBehaviour
 {
 
     SceneController _sceneController;
-    List<List<CardTemplate>> listOfLists;
+    List<List<Card>> matrix;
 
-    // Start is called before the first frame update
     void Start()
     {
         _sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
-        listOfLists = _sceneController.matrixListOflist;
-        TakeLastCardInMatrix(listOfLists);
+        this.matrix = _sceneController.matrix;
 
-
+        TakeLastCardInMatrix(this.matrix);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
-    public void TakeLastCardInMatrix(List<List<CardTemplate>> listOfLists)
+    public void TakeLastCardInMatrix(List<List<Card>> listOfLists)
     {
         foreach (var item in listOfLists)
         {
@@ -38,10 +31,10 @@ public class MatrixManager : MonoBehaviour
         }
     }
 
-    public void RemoveFromMatrix(CardTemplate cardTemplate)
+    public void RemoveFromMatrix(Card cardTemplate)
     {
-        //TODO -- sistemare  linw
-        var item = (listOfLists.Where(c => c.Contains(cardTemplate))).FirstOrDefault();
+        //TODO -- sistemare  linq
+        var item = (matrix.Where(c => c.Contains(cardTemplate))).FirstOrDefault();
         var card = item.Where(s => s == cardTemplate).First();
 
         if (item.Count > 1)

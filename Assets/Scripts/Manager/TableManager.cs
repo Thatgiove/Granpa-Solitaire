@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TablePosition : MonoBehaviour
+public class TableManager : MonoBehaviour
 {
     //determina se nel collider è già presente una carta
     //TODO deve essere privato
@@ -31,11 +31,11 @@ public class TablePosition : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        CardTemplate cardTemplate = other.gameObject.GetComponent<CardTemplate>();
+        Card cardTemplate = other.gameObject.GetComponent<Card>();
 
 
         //POSSO METTERE IN RIGA
-        if (cardTemplate.cardDescription == Manager.CardSeed && cardCounter < 1)
+        if (cardTemplate.cardInfo.Description == Manager.CardSeed && cardCounter < 1)
         {
             cardTemplate.transform.position = new Vector3(
             gameObject.transform.position.x,
@@ -53,29 +53,29 @@ public class TablePosition : MonoBehaviour
 
 
             cardCounter += 1;
-            currentCardId = cardTemplate.cardId;
+            currentCardId = cardTemplate.cardInfo.Id;
 
             if (cardTemplate.isPrincipalCard)
             {
                 //aggiungo alla lista di stringhe il seme
                 iSPrincipalCardline = true;
-                Manager.SeedList.Add(cardTemplate.cardDescription);
+                Manager.SeedList.Add(cardTemplate.cardInfo.Description);
             }
 
-            listOfCarfInTable.Add(cardTemplate.cardDescription);
+            listOfCarfInTable.Add(cardTemplate.cardInfo.Description);
             _soundEffect.Play();
 
         }
 
         //POSSO METTERE IN COLONNA
         //se la carta che collide 
-        else if (cardTemplate.cardId == currentCardId && cardCounter >= 1 &&
+        else if (cardTemplate.cardInfo.Id == currentCardId && cardCounter >= 1 &&
             (iSPrincipalCardline ||
             Manager.SeedList.Count > cardCounter && //previene l'outOfBound
-            Manager.SeedList[cardCounter] == cardTemplate.cardDescription))  //la card description è la stessa di quella dalla principal card nella possizione del counter
+            Manager.SeedList[cardCounter] == cardTemplate.cardInfo.Description))  //la card description è la stessa di quella dalla principal card nella possizione del counter
         {
             if (iSPrincipalCardline)
-                Manager.SeedList.Add(cardTemplate.cardDescription);
+                Manager.SeedList.Add(cardTemplate.cardInfo.Description);
 
             //posso aggiungere alla lista di carte di quel gruppo
 
@@ -96,8 +96,8 @@ public class TablePosition : MonoBehaviour
                 _matrixManager.RemoveFromMatrix(cardTemplate); //rimuove ultima card dalla matrice
             }
             cardCounter += 1;
-            currentCardId = cardTemplate.cardId;
-            listOfCarfInTable.Add(cardTemplate.cardDescription);
+            currentCardId = cardTemplate.cardInfo.Id;
+            listOfCarfInTable.Add(cardTemplate.cardInfo.Description);
 
             _soundEffect.Play();
             //foreach (var i in Manager.SeedList)
@@ -109,17 +109,17 @@ public class TablePosition : MonoBehaviour
     }
 
 
-    void RemoveFromDeck(CardTemplate card)
+    void RemoveFromDeck(Card card)
     {
         if (_deckManager.Deck.Contains(card))
             _deckManager.Deck.Remove(card);
-        else if (_deckManager.OtherDeck.Contains(card))
+        else if (_deckManager.Deck_tmp.Contains(card))
         {
-            if (_deckManager.OtherDeck.Count > 1)
+            if (_deckManager.Deck_tmp.Count > 1)
             {
-                _deckManager.OtherDeck[_deckManager.OtherDeck.IndexOf(card) - 1].canDrag = true;
+                _deckManager.Deck_tmp[_deckManager.Deck_tmp.IndexOf(card) - 1].canDrag = true;
             }
-            _deckManager.OtherDeck.Remove(card);
+            _deckManager.Deck_tmp.Remove(card);
 
         }
 

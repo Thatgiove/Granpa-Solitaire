@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,111 +6,129 @@ using UnityEngine;
 
 public class SceneController : MonoBehaviour
 {
-    //posso modificare le la struct direttamente sull'ispector
 
-    [SerializeField]
-    private CardTemplate cardTemplate;
-
-    [SerializeField]
-    private List<CardInfo> CardInfoList;
-
-    public List<CardTemplate> cardDeck;
-
-    private int row = 4;
-    private int col = 4;
-
-    private int z = 0;
-    private int k = 0;
-
-    private const float OFFSET_X = 0.8f;
-    private const float OFFSET_Y = 0.1f;
-    private const float OFFSET_Z = 0.01f;
-
-    private List<CardTemplate> matrix;
-
-    public List<List<CardTemplate>> matrixListOflist = new List<List<CardTemplate>>();
+    [SerializeField] private Card cardTemplate;
+    [SerializeField] private List<CardInfo> CardInfoList;
 
 
+    public List<Card> cardDeck;
+    private List<Card> cardListInMatrix;
+    public List<List<Card>> matrix = new List<List<Card>>();
+
+    int row = 4, 
+        col = 4,  
+        z = 0,
+        k = 0;
+
+    const float OFFSET_X = 0.8f, 
+                OFFSET_Y = 0.1f,
+                OFFSET_Z = 0.01f;
 
 
-    // Start is called before the first frame update
     void Awake()
     {
-        //Debug.Log("scenecontroller ");
-        //creo una lista delle carte con le relative informazioni
-        List<CardTemplate> cardTemplateList = CreateCardWithInfo();
+        List<Card> CardList = CreateCardsWithInfo(); //crea carte con scriptable object
+        List<Card> CardShuffled = ShuffleCard(CardList); //mischia
 
-        //mischio le carte 
-        List<CardTemplate> cardShuffled = ShuffleCard(cardTemplateList);
+        this.SplitCards(CardShuffled); 
 
-         var listSplitted = Split<CardTemplate>(cardShuffled, 24);
-        //var listSplitted = SplitProva<CardTemplate>(cardShuffled);
+        this.SetDeckPosition();
+        this.SetMatrixPosition();
+        this.SetPrincipalCard();
+    }
 
-        cardDeck = listSplitted.ElementAt(0);
-        matrix = listSplitted.ElementAt(1);
-
-
-
-        //posizione e offset asse z del mazzo
-        foreach (var card in cardDeck)
+    void SplitCards(List<Card> cardShuffled)
+    {
+        try
         {
-            card.transform.position = new Vector3(0, -2f, 0.5f);
-
-            float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
-            card.transform.position = new Vector3(0, -2f, posZ);
-            z++;
+            List<List<Card>> listSplitted = Split<Card>(cardShuffled, 24); //divido tutte le carte e ricavo...
+            cardDeck = listSplitted.ElementAt(0); //il mazzo...
+            cardListInMatrix = listSplitted.ElementAt(1); //e le carte della matrice 
+            matrix = Split<Card>(cardListInMatrix, 4); //creo la matrice superiore
         }
-
-        //crea la matrice 4x4 superiore
-        for (int i = 0; i < row; i++)
+        catch (Exception ex)
         {
-            for (int j = 0; j < col; j++)
+
+            throw ex;
+        }
+    }
+    void SetDeckPosition()
+    {
+        try
+        {
+            foreach (Card card in cardDeck)//posizione e offset asse z del mazzo
             {
-                var a = matrix[k];
-                a.isMatrix = true;
-                //definisco una posizione iniziale
-                gameObject.transform.position = new Vector3(-1.3f, 1.9f, -0.5f);
+                card.transform.position = new Vector3(0, -2f, 0.5f);
 
-                float posX = (OFFSET_X * i) + gameObject.transform.position.x;
-                float posY = -(OFFSET_Y * j) + gameObject.transform.position.y;
                 float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
-
-                a.transform.position = new Vector3(posX, posY, posZ);
-
-
-
-                k++;
+                card.transform.position = new Vector3(0, -2f, posZ);
                 z++;
             }
         }
-
-        //posiziona la matrice in una lista di liste
-        matrixListOflist = Split<CardTemplate>(matrix,4);
-
-
-        
-
-        //definisco la principalCard estraendola dal mazzo
-        CardTemplate principalCard = cardDeck[UnityEngine.Random.Range(0, cardDeck.Count)];
-        principalCard.transform.position = new Vector3(-3.79f, -0.3f, -0.5f);
-        principalCard.isPrincipalCard = true;
-
+        catch (Exception ex)
+        {
+            throw ex;
+        }
 
     }
+    void SetMatrixPosition()
+    {
 
-    void Update()
-    {
-       
+        try
+        {
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    Card _card = cardListInMatrix[k];
+                    _card.isMatrix = true;
+
+                    gameObject.transform.position = new Vector3(-1.3f, 1.9f, -0.5f);//definisco una posizione iniziale
+
+                    float posX = (OFFSET_X * i) + gameObject.transform.position.x;
+                    float posY = -(OFFSET_Y * j) + gameObject.transform.position.y;
+                    float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
+
+                    _card.transform.position = new Vector3(posX, posY, posZ);
+                    k++;
+                    z++;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+
     }
-    List<CardTemplate> ShuffleCard(List<CardTemplate> cardList)
+    void SetPrincipalCard()
     {
-        List<CardTemplate> shuffledList = new List<CardTemplate>();
+        try
+        {
+            Card principalCard = cardDeck[UnityEngine.Random.Range(0, cardDeck.Count)]; //definisco la principalCard estraendola dal mazzo
+            principalCard.transform.position = new Vector3(-3.79f, -0.3f, -0.5f);
+            principalCard.isPrincipalCard = true;
+        }
+        catch (Exception ex)
+        {
+
+            throw ex;
+        }
+    }
+
+   
+
+    //TODO spostare nel global?
+    List<Card> ShuffleCard(List<Card> cardList)
+    {
+        List<Card> shuffledList = new List<Card>();
 
         for (int i = 0; i < cardList.Count; i++)
         {
             int randomIndex = UnityEngine.Random.Range(i, cardList.Count);
 
-            CardTemplate value = cardList[randomIndex];
+            Card value = cardList[randomIndex];
             cardList[randomIndex] = cardList[i];
             cardList[i] = value;
 
@@ -120,17 +137,17 @@ public class SceneController : MonoBehaviour
 
         return shuffledList;
     }
-    List<CardTemplate> CreateCardWithInfo()
+    List<Card> CreateCardsWithInfo()
     {
 
-        List<CardTemplate> cardList = new List<CardTemplate>();
+        List<Card> cardList = new List<Card>();
         //cicla sulla lista delle card info
         for (int i = 0; i < CardInfoList.Count; i++)
         {
-            CardTemplate cardClone;
+            Card cardClone;
             //creo un card template
             //l'oggetto va istanziato come gameObject
-            cardClone = Instantiate(cardTemplate) as CardTemplate;
+            cardClone = Instantiate(cardTemplate) as Card;
 
             //e assegno le informazioni
             cardClone.cardInfo = CardInfoList[i];
@@ -140,9 +157,9 @@ public class SceneController : MonoBehaviour
         return cardList;
 
     }
-    List<List<CardTemplate>> Split<T>(List<CardTemplate> cardTemplateList, int size)
+    List<List<Card>> Split<T>(List<Card> cardTemplateList, int size)
     {
-        var chunks = new List<List<CardTemplate>>();
+        var chunks = new List<List<Card>>();
         var chunkCount = cardTemplateList.Count() / size;
 
         if (cardTemplateList.Count % size > 0)
@@ -153,7 +170,6 @@ public class SceneController : MonoBehaviour
 
         return chunks;
     }
-
 
 
 }
