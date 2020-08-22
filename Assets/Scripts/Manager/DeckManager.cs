@@ -22,10 +22,10 @@ public class DeckManager : MonoBehaviour
 
     float i = 0.05f,
           j = 0.02f;
- 
-    const float OFFSET_X = 0.02f, 
+
+    const float OFFSET_X = 0.02f,
                 OFFSET_Z = 0.01f;
-   
+
     Vector3 DECK_POSITION = new Vector3(0, -2, -1f),
             OTHER_DECK_POSITION = new Vector3(1, -2, -1.5f), // posizione a lato del principal deck
             OTHER_DECK_POSITION_TMP = new Vector3(1, -2, -1.5f); // posizione a lato del principal deck
@@ -50,18 +50,18 @@ public class DeckManager : MonoBehaviour
         //TODO -- creare metodo condiviso
         if (Deck.Count > 0)
         {
-            
+
             CardsSelected = Deck.Where(x => !(x.isPrincipalCard && x.canPutOnTable))
                                 .Skip(Deck.Count - 3)
                                 .ToList(); //seleziono le ultime 3 carte
-            
-            
+
+
             CardsSelected.ForEach(cards => Deck.Remove(cards));//le rimuovo dal mazzo
             CardsSelected.Reverse(); //le inverto
 
             Deck_tmp.AddRange(CardsSelected);//le aggiungo al  mazzo tmp
 
-           
+
             foreach (var card in Deck_tmp)
             {
                 card.canDrag = false;
@@ -71,14 +71,14 @@ public class DeckManager : MonoBehaviour
 
         }
 
-        else 
-        { 
+        else
+        {
             i = 0;
-            j = 0; 
+            j = 0;
             CardsSelected = Deck_tmp.Where(x => !(x.isPrincipalCard && x.canPutOnTable))
                                     .Skip(3)
-                                    .ToList(); 
-            
+                                    .ToList();
+
             CardsSelected.ForEach(item => Deck_tmp.Remove(item));  //rimuovo le carte restanti oltre le tre
             Deck.AddRange(CardsSelected);
 
@@ -87,7 +87,7 @@ public class DeckManager : MonoBehaviour
                 card.canDrag = false;
                 card.transform.position = DECK_POSITION;
             }
-            
+
             OTHER_DECK_POSITION_TMP = OTHER_DECK_POSITION; //reset della nuova posizione
 
             foreach (Card card in Deck_tmp)
@@ -114,4 +114,25 @@ public class DeckManager : MonoBehaviour
         j += 0.01f;
     }
 
+
+
+
+
+    public void RemoveCardFromDecks(Card card)
+    {
+        if (Deck.Contains(card))
+            Deck.Remove(card);
+
+        else if (Deck_tmp.Contains(card))
+        {
+            if (Deck_tmp.Count > 1)
+            {
+                Deck_tmp[Deck_tmp.IndexOf(card) - 1].canDrag = true;
+            }
+            Deck_tmp.Remove(card);
+        }
+
+    }
 }
+
+

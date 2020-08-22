@@ -1,128 +1,136 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+
+
+/// <summary>
+///NEL TAVOLO DA GIOCO SONO PRESENTI 10 POSIZIONI
+///OGNI POSIZIONE HA DELLE PROPRIETA' CHE IDENTIFICANO
+///QUANTE CARTE SONO PRESENTI, QUALI SEMI SONO USCITI E SE
+///E' LA POSIZIONE DELLA CARTA PRINCIPALE. IN BASE A
+///QUESTE PROPRIETA' VENGONO EFFETTUATI DEI CONTROLLI
+///NEI METODI CanPutInRow() E CanPutInCol()
+
+/// </summary>
+
+
 
 public class TableManager : MonoBehaviour
 {
-    //determina se nel collider è già presente una carta
-    //TODO deve essere privato
-    public int cardCounter = 0;
-    public int currentCardId = 0;
-    public List<string> listOfCarfInTable;
-    public bool iSPrincipalCardline = false;
+
+    //////////PROPRIETA' DELL'IESIMO ELEMENTO DELLA TABLE POSITION//////////////////////
+    int cardCounter = 0;
+    int currentCardId = 0;
+    bool iSPrincipalCardline = false;
+    List<string> listOfCarfInTable = new List<string>();
+    /////////////////////////////////////////////////////////////////////////////////
+
+    Card card; // la carta che collide
     DeckManager _deckManager;
     MatrixManager _matrixManager;
     AudioSource _soundEffect;
 
     void Start()
     {
-        //Debug.Log("tableposition ");
-        _deckManager = GameObject.Find("Button").GetComponent<DeckManager>();
+        _deckManager = GameObject.Find("Deck").GetComponent<DeckManager>();
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
-        _soundEffect = GameObject.Find("BUTTON_Click_Jigsaw_Crop_01_stereo").GetComponent<AudioSource>();
+
+        _soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();
 
     }
 
-    void Update()
-    {
-
-    }
 
     void OnTriggerEnter(Collider other)
     {
-        Card cardTemplate = other.gameObject.GetComponent<Card>();
+        card = other.gameObject.GetComponent<Card>();
 
 
-        //POSSO METTERE IN RIGA
-        if (cardTemplate.cardInfo.Description == Manager.CardSeed && cardCounter < 1)
+        if (CanPutInRow())
         {
-            cardTemplate.transform.position = new Vector3(
-            gameObject.transform.position.x,
-            gameObject.transform.position.y,
-            gameObject.transform.position.z - 0.2f);
+            card.transform.position = new Vector3( gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
+            card.canDrag = false;
+            card.canPutOnTable = true;
 
-            cardTemplate.canDrag = false;
-            cardTemplate.canPutOnTable = true;
-            RemoveFromDeck(cardTemplate);
-
-            if (cardTemplate.canPutOnTable && cardTemplate.isMatrix)
+            if (card.canPutOnTable && card.isMatrix)
             {
-                _matrixManager.RemoveFromMatrix(cardTemplate); //rimuove ultima card dalla matrice
+                _matrixManager.RemoveFromMatrix(card); //rimuove ultima card dalla matrice
             }
+            _deckManager.RemoveCardFromDecks(card);
 
 
-            cardCounter += 1;
-            currentCardId = cardTemplate.cardInfo.Id;
-
-            if (cardTemplate.isPrincipalCard)
+            if (card.isPrincipalCard)
             {
                 //aggiungo alla lista di stringhe il seme
                 iSPrincipalCardline = true;
-                Manager.SeedList.Add(cardTemplate.cardInfo.Description);
+                Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
             }
 
-            listOfCarfInTable.Add(cardTemplate.cardInfo.Description);
+
+            this.UpdateInfoOfTablePosition();
+
+
             _soundEffect.Play();
 
         }
 
-        //POSSO METTERE IN COLONNA
-        //se la carta che collide 
-        else if (cardTemplate.cardInfo.Id == currentCardId && cardCounter >= 1 &&
-            (iSPrincipalCardline ||
-            Manager.SeedList.Count > cardCounter && //previene l'outOfBound
-            Manager.SeedList[cardCounter] == cardTemplate.cardInfo.Description))  //la card description è la stessa di quella dalla principal card nella possizione del counter
+        
+        else if (CanPutInCol()) 
         {
+           
             if (iSPrincipalCardline)
-                Manager.SeedList.Add(cardTemplate.cardInfo.Description);
+                Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
 
             //posso aggiungere alla lista di carte di quel gruppo
 
 
             //posizione della carta con offset
-            cardTemplate.transform.position = new Vector3(
+            card.transform.position = new Vector3(
                 gameObject.transform.position.x,
                 gameObject.transform.position.y - (cardCounter * 0.2f),
                 gameObject.transform.position.z - (cardCounter * 0.3f));
 
-            cardTemplate.canPutOnTable = true;
-            cardTemplate.canDrag = false;
+            card.canPutOnTable = true;
+            card.canDrag = false;
 
-            RemoveFromDeck(cardTemplate);
+            
 
-            if (cardTemplate.canPutOnTable && cardTemplate.isMatrix)
+            if (card.canPutOnTable && card.isMatrix)
             {
-                _matrixManager.RemoveFromMatrix(cardTemplate); //rimuove ultima card dalla matrice
+                _matrixManager.RemoveFromMatrix(card); //rimuove ultima card dalla matrice
             }
-            cardCounter += 1;
-            currentCardId = cardTemplate.cardInfo.Id;
-            listOfCarfInTable.Add(cardTemplate.cardInfo.Description);
+
+            _deckManager.RemoveCardFromDecks(card);
+            this.UpdateInfoOfTablePosition();
 
             _soundEffect.Play();
-            //foreach (var i in Manager.SeedList)
-            //{
-            //    Debug.Log (i);
-            //}
+
         }
 
     }
 
 
-    void RemoveFromDeck(Card card)
+
+
+    void UpdateInfoOfTablePosition()
     {
-        if (_deckManager.Deck.Contains(card))
-            _deckManager.Deck.Remove(card);
-        else if (_deckManager.Deck_tmp.Contains(card))
-        {
-            if (_deckManager.Deck_tmp.Count > 1)
-            {
-                _deckManager.Deck_tmp[_deckManager.Deck_tmp.IndexOf(card) - 1].canDrag = true;
-            }
-            _deckManager.Deck_tmp.Remove(card);
-
-        }
-
+        this.cardCounter += 1;
+        this.currentCardId = card.cardInfo.Id;
+        this.listOfCarfInTable.Add(card.cardInfo.Description);
     }
+
+
+    bool CanPutInRow()
+    {
+        return card.cardInfo.Description == Manager.PrincipalCardSeed && cardCounter < 1;
+    }
+
+    bool CanPutInCol()
+    {
+        return card.cardInfo.Id == currentCardId && cardCounter >= 1 &&
+            (iSPrincipalCardline ||
+            Manager.PrincipalCardSeedList.Count > cardCounter && //previene l'outOfBound
+            Manager.PrincipalCardSeedList[cardCounter] == card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
+    }
+
 
 }
