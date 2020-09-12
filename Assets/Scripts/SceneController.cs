@@ -36,8 +36,10 @@ public class SceneController : MonoBehaviour
         this.SetMatrixPosition();
         this.SetPrincipalCard();
 
-        this.PlayMusic();
+
     }
+
+
 
     void SplitCards(List<Card> cardShuffled)
     {
@@ -175,24 +177,5 @@ public class SceneController : MonoBehaviour
 
 
 
-    //TODO --- valutare dove mettere
-    //--trovare il modo di non far ripartire la musica
-    public void PlayMusic()
-    {
-        AudioSource music = GameObject.Find("Music").GetComponent<AudioSource>();
-        Image btnImage = GameObject.Find("AudioButton").GetComponent<Image>();
 
-        
-
-        if (Manager.musicPlaying)
-        {
-            music.Play();
-            btnImage.sprite = Resources.Load<Sprite>("Buttons/SoundOn");
-        }
-        else
-        {
-            music.Pause();
-            btnImage.sprite = Resources.Load<Sprite>("Buttons/SoundOff");
-        }
-    }
 }

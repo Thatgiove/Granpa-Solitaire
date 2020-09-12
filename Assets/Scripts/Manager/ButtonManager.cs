@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    //bool musicPlaying = true;
 
 
     public void RestarGame()
     {
+
         Manager.PrincipalCardSeedList = new List<string>();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+
+
     }
     public void MainMenu()
     {
@@ -23,7 +24,13 @@ public class ButtonManager : MonoBehaviour
     public void ToggleSound()
     {
         Manager.musicPlaying = !Manager.musicPlaying;
-        GameObject.Find("SceneController").GetComponent<SceneController>().PlayMusic();
+        GameObject.Find("Audio").GetComponent<AudioSingleton>().PlayMusic();
+    }
+
+    public void ControlDeck()
+    {
+        GameObject.Find("DeckManager").GetComponent<DeckManager>().SwipeCardDeck();
+
     }
 }
 

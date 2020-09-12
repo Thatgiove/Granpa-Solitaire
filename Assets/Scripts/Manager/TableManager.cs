@@ -32,7 +32,7 @@ public class TableManager : MonoBehaviour
 
     void Start()
     {
-        _deckManager = GameObject.Find("Deck").GetComponent<DeckManager>();
+        _deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
 
         _soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();

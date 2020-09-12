@@ -42,8 +42,8 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    //TODO -- cambiare nome 
-    public void PrintCardDeck()
+     
+    public void SwipeCardDeck()
     {
 
 
