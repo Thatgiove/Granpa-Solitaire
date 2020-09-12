@@ -24,7 +24,7 @@ public class ButtonManager : MonoBehaviour
     public void ToggleSound()
     {
         Manager.musicPlaying = !Manager.musicPlaying;
-        GameObject.Find("Audio").GetComponent<AudioSingleton>().PlayMusic();
+        AudioSingleton.instance.PlayMusic();
     }
 
     public void ControlDeck()
