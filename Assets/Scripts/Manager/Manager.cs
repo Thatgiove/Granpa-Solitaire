@@ -9,6 +9,6 @@ public static class Manager
 
     public static List<string> PrincipalCardSeedList = new List<string>(); //lista di stringhe che tiene conto del seme
 
-    public static bool musicPlaying = true;
+    public static bool PlayMusic = false;
 
 }

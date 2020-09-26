@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1865501258358197714}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -3.8, y: -0.16, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,10 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2839cf9bdf7dc4cbb76ea847ec7f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardCounter: 0
-  currentCardId: 0
-  listOfCarfInTable: []
-  iSPrincipalCardline: 0
 --- !u!65 &1865501258358197727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,8 +106,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.24552874, y: 0.3244756, z: 45.16293}
-  m_Center: {x: 0.62659675, y: -0.0064144093, z: -13.098038}
+  m_Size: {x: 2.3806992, y: 0.3244756, z: 45.16293}
+  m_Center: {x: -0.4409889, y: -0.0064144116, z: -13.098038}
 --- !u!54 &1865501258358197713
 Rigidbody:
   m_ObjectHideFlags: 0

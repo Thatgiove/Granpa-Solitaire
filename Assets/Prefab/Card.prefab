@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5061462238047086992}
   - component: {fileID: 2105365096255920845}
   m_Layer: 0
-  m_Name: CardTemplate
+  m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,10 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfo: {fileID: 11400000, guid: b4120d2d27764d24face390768db1d0f, type: 2}
-  canPutInRow: 0
-  cardId: 0
-  cardDescription: 
-  principalCardDescription: 
+  canDrag: 0
+  canPutOnTable: 0
+  canPutInCol: 0
+  isMatrix: 0
+  isPrincipalCard: 0
 --- !u!212 &6326100104468335338
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -68,7 +69,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2dd768c9b6f7e1243b6b9df58bf817cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

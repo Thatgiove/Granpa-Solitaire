@@ -13,18 +13,19 @@ public class ButtonManager : MonoBehaviour
         Manager.PrincipalCardSeedList = new List<string>();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-
     }
     public void MainMenu()
     {
         Manager.PrincipalCardSeedList = new List<string>();
+        Destroy(GameObject.Find("Audio"));
+        Destroy(GameObject.Find("Canvas"));
         SceneManager.LoadScene("Main Menu");
     }
 
     public void ToggleSound()
     {
-        Manager.musicPlaying = !Manager.musicPlaying;
-        AudioSingleton.instance.PlayMusic();
+        Manager.PlayMusic = !Manager.PlayMusic;
+        GameObject.Find("Audio").GetComponent<AudioSingleton>().PlayMusic();
     }
 
     public void ControlDeck()
@@ -32,5 +33,6 @@ public class ButtonManager : MonoBehaviour
         GameObject.Find("DeckManager").GetComponent<DeckManager>().SwipeCardDeck();
 
     }
+
 }
 

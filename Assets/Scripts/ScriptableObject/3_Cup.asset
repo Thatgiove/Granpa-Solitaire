@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 3
   _Description: Cup
-  _CardImage: {fileID: 21300000, guid: af55fdb9eb441c84eab08a5e14574386, type: 3}
+  _CardImage: {fileID: 21300000, guid: 15876159a0544c348a038f04c0098706, type: 3}

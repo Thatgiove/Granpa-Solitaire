@@ -34,19 +34,22 @@ public class TableManager : MonoBehaviour
     {
         _deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
-
         _soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();
-
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        card = other.gameObject.GetComponent<Card>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
         card = other.gameObject.GetComponent<Card>();
-
+        
 
         if (CanPutInRow())
         {
+            //print("Can put on row");
             card.transform.position = new Vector3( gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
             card.canDrag = false;
             card.canPutOnTable = true;
@@ -60,15 +63,11 @@ public class TableManager : MonoBehaviour
 
             if (card.isPrincipalCard)
             {
-                //aggiungo alla lista di stringhe il seme
                 iSPrincipalCardline = true;
                 Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
             }
 
-
             this.UpdateInfoOfTablePosition();
-
-
             _soundEffect.Play();
 
         }
@@ -117,7 +116,6 @@ public class TableManager : MonoBehaviour
         this.currentCardId = card.cardInfo.Id;
         this.listOfCarfInTable.Add(card.cardInfo.Description);
     }
-
 
     bool CanPutInRow()
     {

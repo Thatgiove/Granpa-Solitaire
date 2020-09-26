@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 3
   _Description: Stick
-  _CardImage: {fileID: 21300000, guid: d912b66a4ec70734f85ee5af81c9174e, type: 3}
+  _CardImage: {fileID: 21300000, guid: 29dd3e36e00940a498cac78c8d2d059b, type: 3}

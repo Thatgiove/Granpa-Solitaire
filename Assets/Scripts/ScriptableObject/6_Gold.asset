@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 6
   _Description: Gold
-  _CardImage: {fileID: 21300000, guid: 9ff8ea49dbbf43b4b8e845b391ddff23, type: 3}
+  _CardImage: {fileID: 21300000, guid: fb0c1b25872b35b45819fce4b78a3eae, type: 3}

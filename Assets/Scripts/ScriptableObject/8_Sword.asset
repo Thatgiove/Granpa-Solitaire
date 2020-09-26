@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Id: 8
   _Description: Sword
-  _CardImage: {fileID: 21300000, guid: bb99a6b506e4ae5498b4fbf5062956ca, type: 3}
+  _CardImage: {fileID: 21300000, guid: b1e9ac42add687f458d35bead0bac28e, type: 3}

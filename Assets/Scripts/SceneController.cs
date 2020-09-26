@@ -20,7 +20,7 @@ public class SceneController : MonoBehaviour
         z = 0,
         k = 0;
 
-    const float OFFSET_X = 0.8f, 
+    public const float OFFSET_X = 0.8f, 
                 OFFSET_Y = 0.1f,
                 OFFSET_Z = 0.01f;
 
@@ -62,10 +62,10 @@ public class SceneController : MonoBehaviour
         {
             foreach (Card card in cardDeck)//posizione e offset asse z del mazzo
             {
-                card.transform.position = new Vector3(0, -2f, 0.5f);
+                card.transform.position = new Vector3(0, -1.85f, 0.5f);
 
                 float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
-                card.transform.position = new Vector3(0, -2f, posZ);
+                card.transform.position = new Vector3(0, -1.85f, posZ);
                 z++;
             }
         }
