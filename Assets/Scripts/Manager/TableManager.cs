@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -19,10 +20,12 @@ public class TableManager : MonoBehaviour
 {
 
     //////////PROPRIETA' DELL'IESIMO ELEMENTO DELLA TABLE POSITION//////////////////////
-    int cardCounter = 0;
-    int currentCardId = 0;
-    bool iSPrincipalCardline = false;
-    List<string> listOfCarfInTable = new List<string>();
+    public int cardCounter = 0;
+    public int currentCardId = 0;
+    public bool iSPrincipalCardline = false;
+    bool triggeringRow = false;
+    bool triggeringCol = false;
+    public List<string> listOfCarfInTable = new List<string>();
     /////////////////////////////////////////////////////////////////////////////////
 
     Card card; // la carta che collide
@@ -36,21 +39,18 @@ public class TableManager : MonoBehaviour
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
         _soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();
     }
-
-    private void OnTriggerExit(Collider other)
+    void Update()
     {
-        card = other.gameObject.GetComponent<Card>();
-    }
+        if (card == null) return;
 
-    void OnTriggerEnter(Collider other)
-    {
-        card = other.gameObject.GetComponent<Card>();
-        
-
-        if (CanPutInRow())
+        if ((card.isPrincipalCard && triggeringRow) || (Input.GetMouseButtonUp(0) && triggeringRow))
         {
-            //print("Can put on row");
-            card.transform.position = new Vector3( gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
+            if (card.isPrincipalCard)
+            {
+                iSPrincipalCardline = true;
+                Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
+            }
+            card.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
             card.canDrag = false;
             card.canPutOnTable = true;
 
@@ -60,22 +60,12 @@ public class TableManager : MonoBehaviour
             }
             _deckManager.RemoveCardFromDecks(card);
 
-
-            if (card.isPrincipalCard)
-            {
-                iSPrincipalCardline = true;
-                Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
-            }
-
             this.UpdateInfoOfTablePosition();
             _soundEffect.Play();
-
+            triggeringRow = false;
         }
-
-        
-        else if (CanPutInCol()) 
+        else if (Input.GetMouseButtonUp(0) && triggeringCol)
         {
-           
             if (iSPrincipalCardline)
                 Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
 
@@ -91,7 +81,7 @@ public class TableManager : MonoBehaviour
             card.canPutOnTable = true;
             card.canDrag = false;
 
-            
+
 
             if (card.canPutOnTable && card.isMatrix)
             {
@@ -102,7 +92,37 @@ public class TableManager : MonoBehaviour
             this.UpdateInfoOfTablePosition();
 
             _soundEffect.Play();
+            triggeringCol = false;
+        }
+         
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        triggeringRow = false;
+        triggeringCol = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        card = other.gameObject.GetComponent<Card>();
+
+        //if (card.isPrincipalCard)
+        //{
+        //    iSPrincipalCardline = true;
+        //    Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
+        //    card.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
+        //    card.canDrag = false;
+        //    card.canPutOnTable = true;
+        //    _soundEffect.Play();
+        //}
+        if (CanPutInRow())
+        {
+            triggeringRow = true;
+        }
+        else if (CanPutInCol()) 
+        {
+            triggeringCol = true;
         }
 
     }

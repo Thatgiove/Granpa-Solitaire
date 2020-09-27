@@ -95,6 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2839cf9bdf7dc4cbb76ea847ec7f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardCounter: 0
+  currentCardId: 0
+  iSPrincipalCardline: 0
+  listOfCarfInTable: []
 --- !u!65 &1865501258358197727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,8 +110,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3806992, y: 0.3244756, z: 45.16293}
-  m_Center: {x: -0.4409889, y: -0.0064144116, z: -13.098038}
+  m_Size: {x: 0.83437943, y: 0.88739777, z: 41.398335}
+  m_Center: {x: -0.68382806, y: 0.25569424, z: -11.215739}
 --- !u!54 &1865501258358197713
 Rigidbody:
   m_ObjectHideFlags: 0
