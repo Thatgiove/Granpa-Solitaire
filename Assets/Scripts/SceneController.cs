@@ -85,15 +85,16 @@ public class SceneController : MonoBehaviour
                 for (int j = 0; j < col; j++)
                 {
                     Card _card = cardListInMatrix[k];
-                    _card.isMatrix = true;
 
-                    gameObject.transform.position = new Vector3(-1.3f, 1.9f, -0.5f);//definisco una posizione iniziale
+                    _card.isMatrix = true;
+                    gameObject.transform.position = new Vector3(-1.3f, 1.9f, -0.8f);//definisco una posizione iniziale
 
                     float posX = (OFFSET_X * i) + gameObject.transform.position.x;
                     float posY = -(OFFSET_Y * j) + gameObject.transform.position.y;
                     float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
 
                     _card.transform.position = new Vector3(posX, posY, posZ);
+
                     k++;
                     z++;
                 }

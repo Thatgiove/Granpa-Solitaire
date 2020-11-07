@@ -46,7 +46,10 @@ public class Card : MonoBehaviour
         {
             float distanceToScreen = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             Vector3 pos_move = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToScreen));
-            transform.position = new Vector3(pos_move.x, pos_move.y, pos_move.z);
+            
+            //per mettere in evidenza la posizione z della carta selezionata
+            transform.position = new Vector3(pos_move.x, pos_move.y, pos_move.z <= -2 ? pos_move.z = -2f : pos_move.z - 1f);
+
         }
     
     }
