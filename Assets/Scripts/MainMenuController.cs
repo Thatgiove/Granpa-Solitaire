@@ -7,6 +7,11 @@ public class MainMenuController : MonoBehaviour
     GameObject QuitButton;
     private void Awake()
     {
+        Destroy(GameObject.Find("Audio"));
+        Destroy(GameObject.Find("MainCanvas"));
+
+
+        //rimuvere il find
         GameObject canvas = GameObject.Find("Canvas").gameObject;
         tutorialPanel = canvas.transform.Find("TutorialPanel").gameObject;
 
@@ -20,7 +25,7 @@ public class MainMenuController : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene((int)Utility.Scene.LoadingScreen); 
     }
     public void Quit()
     {

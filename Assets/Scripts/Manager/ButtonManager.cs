@@ -5,22 +5,19 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-
-
     public void RestarGame()
     {
-
         Manager.PrincipalCardSeedList = new List<string>();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+        SceneManager.LoadScene((int)Utility.Scene.GameTable);
     }
     public void MainMenu()
     {
         Manager.PrincipalCardSeedList = new List<string>();
-        Destroy(GameObject.Find("Audio"));
-        Destroy(GameObject.Find("Canvas"));
-        SceneManager.LoadScene("Main Menu");
+        //Destroy(GameObject.Find("Audio"));
+        //Destroy(GameObject.Find("MainCanvas"));
+        SceneManager.LoadScene((int)Utility.Scene.MainMenu);
     }
+
 
     public void ToggleSound()
     {
@@ -31,7 +28,6 @@ public class ButtonManager : MonoBehaviour
     public void ControlDeck()
     {
         GameObject.Find("DeckManager").GetComponent<DeckManager>().SwipeCardDeck();
-
     }
 
 }
