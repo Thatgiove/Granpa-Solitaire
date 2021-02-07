@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
     public void RestarGame()
     {
-        Manager.PrincipalCardSeedList = new List<string>();
+        GameManager.PrincipalCardSeedList = new List<string>();
+        GameManager.DeckEmpty = false;
+        GameManager.MatrixEmpty = false;
+       
+
         SceneManager.LoadScene((int)Utility.Scene.GameTable);
     }
     public void MainMenu()
     {
-        Manager.PrincipalCardSeedList = new List<string>();
+        GameManager.PrincipalCardSeedList = new List<string>();
         //Destroy(GameObject.Find("Audio"));
         //Destroy(GameObject.Find("MainCanvas"));
         SceneManager.LoadScene((int)Utility.Scene.MainMenu);
@@ -21,7 +24,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ToggleSound()
     {
-        Manager.PlayMusic = !Manager.PlayMusic;
+        GameManager.ShouldPlaySound = !GameManager.ShouldPlaySound;
         GameObject.Find("Audio").GetComponent<AudioSingleton>().PlayMusic();
     }
 

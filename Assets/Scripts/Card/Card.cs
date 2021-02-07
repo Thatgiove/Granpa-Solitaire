@@ -24,8 +24,8 @@ public class Card : MonoBehaviour
 
         if (isPrincipalCard)
         {
-            Manager.PrincipalCardSeed = cardInfo.Description;
-            Manager.PrincipalCardValue = cardInfo.Id;
+            GameManager.PrincipalCardSeed = cardInfo.Description;
+            GameManager.PrincipalCardValue = cardInfo.Id;
         }
     }
 

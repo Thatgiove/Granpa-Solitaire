@@ -21,7 +21,7 @@ public class AudioSingleton : Singleton<AudioSingleton>
     public void PlayMusic()
     {
 
-        if (Manager.PlayMusic)
+        if (GameManager.ShouldPlaySound)
         {
             
             music.Play();

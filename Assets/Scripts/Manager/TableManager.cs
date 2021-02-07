@@ -48,7 +48,7 @@ public class TableManager : MonoBehaviour
             if (card.isPrincipalCard)
             {
                 iSPrincipalCardline = true;
-                Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
+                GameManager.PrincipalCardSeedList.Add(card.cardInfo.Description);
             }
             card.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
             card.canDrag = false;
@@ -67,7 +67,7 @@ public class TableManager : MonoBehaviour
         else if (Input.GetMouseButtonUp(0) && triggeringCol)
         {
             if (iSPrincipalCardline)
-                Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
+                GameManager.PrincipalCardSeedList.Add(card.cardInfo.Description);
 
             //posso aggiungere alla lista di carte di quel gruppo
 
@@ -139,15 +139,15 @@ public class TableManager : MonoBehaviour
 
     bool CanPutInRow()
     {
-        return card.cardInfo.Description == Manager.PrincipalCardSeed && cardCounter < 1;
+        return card.cardInfo.Description == GameManager.PrincipalCardSeed && cardCounter < 1;
     }
 
     bool CanPutInCol()
     {
         return card.cardInfo.Id == currentCardId && cardCounter >= 1 &&
             (iSPrincipalCardline ||
-            Manager.PrincipalCardSeedList.Count > cardCounter && //previene l'outOfBound
-            Manager.PrincipalCardSeedList[cardCounter] == card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
+            GameManager.PrincipalCardSeedList.Count > cardCounter && //previene l'outOfBound
+            GameManager.PrincipalCardSeedList[cardCounter] == card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
     }
 
 

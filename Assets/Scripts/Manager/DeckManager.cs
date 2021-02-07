@@ -18,19 +18,13 @@ public class DeckManager : MonoBehaviour
 
     public List<Card> Deck;
     public List<Card> Deck_tmp;
-
-
     float i = 0.05f,
           j = 0.02f;
-
     const float OFFSET_X = 0.02f,
                 OFFSET_Z = 0.01f;
-
     Vector3 DECK_POSITION = new Vector3(0, -1.85f, -1f),
             OTHER_DECK_POSITION = new Vector3(1, -1.85f, -1.5f), // posizione a lato del principal deck
             OTHER_DECK_POSITION_TMP = new Vector3(1, -1.85f, -1.5f); // posizione a lato del principal deck
-
-
 
 
     void Start()
@@ -45,8 +39,6 @@ public class DeckManager : MonoBehaviour
      
     public void SwipeCardDeck()
     {
-
-
         //TODO -- creare metodo condiviso
         if (Deck.Count > 0)
         {
@@ -97,10 +89,8 @@ public class DeckManager : MonoBehaviour
                 CalculateOffSet(card);
 
             }
-        }
+        }  
     }
-
-
 
     void CalculateOffSet(Card card)
     {
@@ -114,10 +104,6 @@ public class DeckManager : MonoBehaviour
         j += 0.01f;
     }
 
-
-
-
-
     public void RemoveCardFromDecks(Card card)
     {
         if (Deck.Contains(card))
@@ -127,11 +113,29 @@ public class DeckManager : MonoBehaviour
         {
             if (Deck_tmp.Count > 1)
             {
-                Deck_tmp[Deck_tmp.IndexOf(card) - 1].canDrag = true;
+                if (Deck_tmp.IndexOf(card) - 1 != -1) //TODO FARE MEGLIO
+                    Deck_tmp[Deck_tmp.IndexOf(card) - 1].canDrag = true;
             }
             Deck_tmp.Remove(card);
         }
+       
+        if (DeckIsEmpty())
+            GameManager.DeckEmpty = true;
+    }
 
+    bool DeckIsEmpty()
+    {
+        return Deck.Count == 0 && Deck_tmp.Count == 0;
+    }
+
+    [ContextMenu("DESTROY_DECK_TEST")]
+    void DESTROY_DECK()
+    {
+        Deck.Clear();
+        Deck_tmp.Clear();
+
+        if (DeckIsEmpty())
+            GameManager.DeckEmpty = true;
     }
 }
 

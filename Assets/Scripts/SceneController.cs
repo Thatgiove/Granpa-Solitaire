@@ -27,6 +27,15 @@ public class SceneController : MonoBehaviour
 
     void Awake()
     {
+        ////////////TODO implementare un finder generico nel global
+        GameManager.DeckEmpty = false;
+        GameManager.MatrixEmpty = false;
+        GameObject canvas = GameObject.Find("MainCanvas").gameObject;
+        var victoryText = canvas.transform.Find("GameOverText").gameObject;
+        if (victoryText)
+            victoryText.SetActive(false);
+        ////////////TODO implementare un finder generico nel global
+        ///
         List<Card> CardList = CreateCardsWithInfo(); //crea carte con scriptable object
         List<Card> CardShuffled = ShuffleCard(CardList); //mischia
 
