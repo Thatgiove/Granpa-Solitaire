@@ -14,25 +14,20 @@ public class AudioSingleton : Singleton<AudioSingleton>
         btnImage = GameObject.Find("AudioIcon").GetComponent<Image>();
 
         PlayMusic();
-
     }
 
 
     public void PlayMusic()
     {
-
         if (GameManager.ShouldPlaySound)
-        {
-            
+        {   
             music.Play();
             btnImage.sprite = Resources.Load<Sprite>("Buttons/SoundOn");
         }
         else
-        {
-          
+        {  
             music.Pause();
             btnImage.sprite = Resources.Load<Sprite>("Buttons/SoundOff");
         }
     }
-
 }

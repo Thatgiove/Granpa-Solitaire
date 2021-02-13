@@ -2,25 +2,27 @@
 
 public class Card : MonoBehaviour
 {
-
-    public CardInfo cardInfo; //scriptable-object
+    SpriteRenderer _spriteRenderer;
     Vector3 originalPosition;
-
+    public CardInfo cardInfo; //scriptable-object
     public bool canDrag;
     public bool canPutOnTable;
     public bool canPutInCol;
     public bool isMatrix;
     public bool isPrincipalCard;
-
-
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     void Start()
     {
         canDrag = true;
         canPutOnTable = false;
         canPutInCol = false;
-        gameObject.transform.localScale = new Vector3(0.16f, 0.16f, 0.16f); 
+        gameObject.transform.localScale = new Vector3(0.16f, 0.16f, 0.16f);
 
-        GetComponent<SpriteRenderer>().sprite = cardInfo.CardImage; 
+        _spriteRenderer.sprite = cardInfo.CardImage;
+    
 
         if (isPrincipalCard)
         {
@@ -29,8 +31,6 @@ public class Card : MonoBehaviour
         }
     }
 
-
-
     public void OnMouseDown()
     {
         if (isPrincipalCard)
@@ -38,7 +38,6 @@ public class Card : MonoBehaviour
         this.originalPosition = gameObject.transform.position;
  
     }
-
     //trascina oggetto
     void OnMouseDrag()
     {
@@ -49,9 +48,7 @@ public class Card : MonoBehaviour
             
             //per mettere in evidenza la posizione z della carta selezionata
             transform.position = new Vector3(pos_move.x, pos_move.y, pos_move.z <= -2 ? pos_move.z = -2f : pos_move.z - 1f);
-
         }
-    
     }
 
     void OnMouseUp()
@@ -61,5 +58,4 @@ public class Card : MonoBehaviour
             gameObject.transform.position = this.originalPosition;
         }
     }
-
 }

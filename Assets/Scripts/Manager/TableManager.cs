@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 
@@ -31,13 +30,18 @@ public class TableManager : MonoBehaviour
     Card card; // la carta che collide
     DeckManager _deckManager;
     MatrixManager _matrixManager;
-    AudioSource _soundEffect;
-
+    AudioClip _clickSound;
     void Start()
     {
         _deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
-        _soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();
+        //_soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();
+        
+        _clickSound = (AudioClip)Resources.Load("Audio/click");
+        if (!_clickSound)
+        {
+            Debug.LogError("AudioClip not found");
+        }
     }
     void Update()
     {
@@ -61,7 +65,16 @@ public class TableManager : MonoBehaviour
             _deckManager.RemoveCardFromDecks(card);
 
             this.UpdateInfoOfTablePosition();
-            _soundEffect.Play();
+            if (GameManager.ShouldPlaySound)
+            {
+                if (GameManager._audioSource)
+                    GameManager._audioSource.PlayOneShot(_clickSound);
+                else
+                {
+                    Debug.LogError("AudioSource not found");
+                }
+            }
+            
             triggeringRow = false;
         }
         else if (Input.GetMouseButtonUp(0) && triggeringCol)
@@ -91,7 +104,15 @@ public class TableManager : MonoBehaviour
             _deckManager.RemoveCardFromDecks(card);
             this.UpdateInfoOfTablePosition();
 
-            _soundEffect.Play();
+            if (GameManager.ShouldPlaySound)
+            {
+                if(GameManager._audioSource)
+                GameManager._audioSource.PlayOneShot(_clickSound);
+                else
+                {
+                    Debug.LogError("AudioSource not found");
+                }
+            }
             triggeringCol = false;
         }
          
@@ -127,9 +148,6 @@ public class TableManager : MonoBehaviour
 
     }
 
-
-
-
     void UpdateInfoOfTablePosition()
     {
         this.cardCounter += 1;
@@ -149,6 +167,4 @@ public class TableManager : MonoBehaviour
             GameManager.PrincipalCardSeedList.Count > cardCounter && //previene l'outOfBound
             GameManager.PrincipalCardSeedList[cardCounter] == card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
     }
-
-
 }

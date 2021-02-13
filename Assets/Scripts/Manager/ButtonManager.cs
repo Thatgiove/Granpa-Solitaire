@@ -9,18 +9,15 @@ public class ButtonManager : MonoBehaviour
         GameManager.PrincipalCardSeedList = new List<string>();
         GameManager.DeckEmpty = false;
         GameManager.MatrixEmpty = false;
-       
-
+        //TODO creare un AudioManager statico
+        GameObject.Find("Audio").GetComponent<AudioSingleton>().PlayMusic();
         SceneManager.LoadScene((int)Utility.Scene.GameTable);
     }
     public void MainMenu()
     {
         GameManager.PrincipalCardSeedList = new List<string>();
-        //Destroy(GameObject.Find("Audio"));
-        //Destroy(GameObject.Find("MainCanvas"));
         SceneManager.LoadScene((int)Utility.Scene.MainMenu);
     }
-
 
     public void ToggleSound()
     {
@@ -32,6 +29,5 @@ public class ButtonManager : MonoBehaviour
     {
         GameObject.Find("DeckManager").GetComponent<DeckManager>().SwipeCardDeck();
     }
-
 }
 

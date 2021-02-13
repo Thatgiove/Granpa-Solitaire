@@ -1,26 +1,27 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
     GameObject tutorialPanel;
-    GameObject QuitButton;
+    Button _quitButton;
     private void Awake()
     {
         Destroy(GameObject.Find("Audio"));
         Destroy(GameObject.Find("MainCanvas"));
 
-
         //rimuvere il find
         GameObject canvas = GameObject.Find("Canvas").gameObject;
         tutorialPanel = canvas.transform.Find("TutorialPanel").gameObject;
 
-        QuitButton = GameObject.Find("Exit");
+        _quitButton = GameObject.Find("Exit").GetComponent<Button>();
     }
 
     private void Update()
     {
-        HideIfClickedOutside(tutorialPanel, QuitButton);
+        HideIfClickedOutside(tutorialPanel);
     }
 
     public void Play()
@@ -29,25 +30,30 @@ public class MainMenuController : MonoBehaviour
     }
     public void Quit()
     {
+        print("quit application");
         Application.Quit();
     }
     public void OpenTutorialPanel()
     {
         tutorialPanel.SetActive(true);
-        QuitButton.SetActive(false);
+        _quitButton.interactable = false;
     }
 
 
-    private void HideIfClickedOutside(GameObject panel, GameObject quitButtton)
+    private void HideIfClickedOutside(GameObject panel)
     {
         Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         if (Input.GetMouseButtonDown(0) &&
             !RectTransformUtility.RectangleContainsScreenPoint(panel.GetComponent<RectTransform>(), mousePosition))
         {
             panel.SetActive(false);
-            quitButtton.SetActive(true);
+            StartCoroutine(ActivateButtonAfterTime());
         }
+    }
 
-
+    IEnumerator ActivateButtonAfterTime()
+    {
+        yield return new WaitForSeconds(1);
+        _quitButton.interactable = true;
     }
 }

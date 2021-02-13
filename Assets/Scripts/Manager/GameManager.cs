@@ -10,23 +10,29 @@ public class GameManager : MonoBehaviour
     public static bool ShouldPlaySound = false;
     public static bool MatrixEmpty = false;
     public static bool DeckEmpty = false;
-
+    public static AudioSource _audioSource;
+    void Awake()
+    {
+        _audioSource = gameObject.AddComponent<AudioSource>();
+    }
     void Update()
     {
         if (MatrixEmpty && DeckEmpty)
         {
-            AudioSource audio = gameObject.AddComponent<AudioSource>();
-            var audioclip = (AudioClip)Resources.Load("Audio/success");
+            var audioclip = (AudioClip)Resources.Load("Audio/success_2");
             if(audioclip && ShouldPlaySound && !AlreadyPlayed)
             {
-                audio.PlayOneShot(audioclip);
-                AlreadyPlayed = true; // TOFO mettere fuori
-            }
+                //TODO bisogna disattivare la musica alla vittoria
+                GameObject.Find("Music").GetComponent<AudioSource>().Stop();
+                _audioSource.PlayOneShot(audioclip);
+            }    
                 
             GameObject canvas = GameObject.Find("MainCanvas").gameObject;
             var victoryText = canvas.transform.Find("GameOverText").gameObject;
             if (victoryText)
                 victoryText.SetActive(true);
+
+            AlreadyPlayed = true; 
         }
     }
 }
