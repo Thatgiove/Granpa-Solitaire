@@ -36,13 +36,14 @@ public class Card : MonoBehaviour
         if (isPrincipalCard)
             canDrag = false;
         this.originalPosition = gameObject.transform.position;
- 
+    
     }
     //trascina oggetto
     void OnMouseDrag()
     {
         if (canDrag)
         {
+            GameInstance.GrabCursor();
             float distanceToScreen = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             Vector3 pos_move = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToScreen));
             
@@ -53,6 +54,8 @@ public class Card : MonoBehaviour
 
     void OnMouseUp()
     {
+        GameInstance.HandCursor();
+
         if (!canPutOnTable)
         {
             gameObject.transform.position = this.originalPosition;

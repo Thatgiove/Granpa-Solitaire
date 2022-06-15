@@ -48,8 +48,6 @@ public class SceneController : MonoBehaviour
 
     }
 
-
-
     void SplitCards(List<Card> cardShuffled)
     {
         try

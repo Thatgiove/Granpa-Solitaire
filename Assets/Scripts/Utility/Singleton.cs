@@ -2,10 +2,8 @@
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-
     public bool isPersistant = true;
     private static T _instance;
-
 
     public static T instance
     {
@@ -20,18 +18,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             return _instance;
         }
     }
-    
-   
-   
-
 
     public virtual void Awake()
     {
-
-
-
-
-
         if (isPersistant)
         {
             if (!_instance)
@@ -57,23 +46,14 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
         if (instance != null)
         {
-           
             return instance;
         }
-            
 
         var name = typeof(T).Name + "Singleton";
         var containerGameObj = new GameObject(name);
 
         var singletonComponent = containerGameObj.AddComponent<T>();
         
-
-
         return singletonComponent;
-
-
     }
-
-
-
 }
