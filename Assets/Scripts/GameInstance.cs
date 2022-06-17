@@ -1,11 +1,30 @@
 ﻿using UnityEngine;
 
-//Non viene mai distrutto in tutto il runtime del game
+/*GameInstance non viene mai distrutta durante il runtime (eredita da Singleton)
+ *e definisce una serie di proprietà generali a cui possono accedere tutte 
+ *le altre classi
+ */
 public class GameInstance : Singleton<GameInstance>
 {
     public static Texture2D[] CursorIcon = new Texture2D[3];
+    public static bool isMusicPlaying;
+    public static bool isSfxPlaying;
 
     void Start()
+    {
+        SetMouseCursor();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            ClickCursor();
+
+        if (Input.GetMouseButtonUp(0))
+            HandCursor();
+    }
+
+    void SetMouseCursor()
     {
         var handCursor = (Texture2D)Resources.Load("MouseCursor/hand");
         var clickCursor = (Texture2D)Resources.Load("MouseCursor/click");
@@ -20,14 +39,6 @@ public class GameInstance : Singleton<GameInstance>
         }
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            ClickCursor();
-
-        if (Input.GetMouseButtonUp(0))
-            HandCursor();
-    }
     public static void HandCursor()
     {
         if (CursorIcon[0])
@@ -35,6 +46,7 @@ public class GameInstance : Singleton<GameInstance>
             Cursor.SetCursor(CursorIcon[0], Vector2.zero, CursorMode.ForceSoftware);
         }
     }
+
     public static void ClickCursor()
     {
         if (CursorIcon[1])
@@ -42,6 +54,7 @@ public class GameInstance : Singleton<GameInstance>
             Cursor.SetCursor(CursorIcon[1], Vector2.zero, CursorMode.ForceSoftware);
         }
     }
+
     public static void GrabCursor()
     {
         if (CursorIcon[2])

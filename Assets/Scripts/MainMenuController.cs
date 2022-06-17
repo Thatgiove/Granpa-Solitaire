@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
     GameObject tutorialPanel;
-    Button _quitButton;
+    //Button _quitButton;
     private void Awake()
     {
         Destroy(GameObject.Find("Audio"));
@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
         GameObject canvas = GameObject.Find("Canvas").gameObject;
         tutorialPanel = canvas.transform.Find("TutorialPanel").gameObject;
 
-        _quitButton = GameObject.Find("Exit").GetComponent<Button>();
+        //_quitButton = GameObject.Find("exit").GetComponent<Button>();
     }
 
     private void Update()
@@ -36,7 +36,7 @@ public class MainMenuController : MonoBehaviour
     public void OpenTutorialPanel()
     {
         tutorialPanel.SetActive(true);
-        _quitButton.interactable = false;
+        //_quitButton.interactable = false;
     }
 
 
@@ -54,6 +54,6 @@ public class MainMenuController : MonoBehaviour
     IEnumerator ActivateButtonAfterTime()
     {
         yield return new WaitForSeconds(1);
-        _quitButton.interactable = true;
+        //_quitButton.interactable = true;
     }
 }
