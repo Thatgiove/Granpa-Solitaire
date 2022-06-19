@@ -39,6 +39,18 @@ public class MainMenuController : MonoBehaviour
         //_quitButton.interactable = false;
     }
 
+    public void PlaySfx()
+    {
+        GameInstance.ToggleSfx();
+    }
+    public void PlayMusic()
+    {
+        GameInstance.ToggleMusic();
+    }
+    public void ToggleQuality()
+    {
+        GameInstance.ToggleQuality();
+    }
 
     private void HideIfClickedOutside(GameObject panel)
     {

@@ -65,7 +65,7 @@ public class TableManager : MonoBehaviour
             _deckManager.RemoveCardFromDecks(card);
 
             this.UpdateInfoOfTablePosition();
-            if (GameManager.ShouldPlaySound)
+            if (GameInstance.isSfxPlaying)
             {
                 if (GameManager._audioSource)
                     GameManager._audioSource.PlayOneShot(_clickSound);
@@ -104,7 +104,7 @@ public class TableManager : MonoBehaviour
             _deckManager.RemoveCardFromDecks(card);
             this.UpdateInfoOfTablePosition();
 
-            if (GameManager.ShouldPlaySound)
+            if (GameInstance.isSfxPlaying)
             {
                 if(GameManager._audioSource)
                 GameManager._audioSource.PlayOneShot(_clickSound);

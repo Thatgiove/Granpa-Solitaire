@@ -4,11 +4,14 @@
  *e definisce una serie di proprietà generali a cui possono accedere tutte 
  *le altre classi
  */
+
 public class GameInstance : Singleton<GameInstance>
 {
     public static Texture2D[] CursorIcon = new Texture2D[3];
+
     public static bool isMusicPlaying;
     public static bool isSfxPlaying;
+    public static bool isHighQuality;
 
     void Start()
     {
@@ -61,6 +64,24 @@ public class GameInstance : Singleton<GameInstance>
         {
             Cursor.SetCursor(CursorIcon[2], Vector2.zero, CursorMode.ForceSoftware);
         }
+    }
+
+    public static void ToggleSfx()
+    {
+        isSfxPlaying = !isSfxPlaying;
+        FindObjectOfType<ControlPanel>()?.ToggleSfxIcon(isSfxPlaying);
+    }
+
+    public static void ToggleMusic()
+    {
+        isMusicPlaying = !isMusicPlaying;
+        FindObjectOfType<MusicSingleton>()?.PlayMusic(isMusicPlaying);
+        FindObjectOfType<ControlPanel>()?.ToggleMusicIcon(isMusicPlaying);
+    }
+    public static void ToggleQuality()
+    {
+        isHighQuality = !isHighQuality;
+        FindObjectOfType<ControlPanel>()?.ToggleLowHighIcon(isHighQuality);
     }
 
     Texture2D Resize(Texture2D texture2D, int targetX, int targetY)
