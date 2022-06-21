@@ -1,27 +1,20 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    GameObject tutorialPanel;
-    //Button _quitButton;
+    GameObject videoPlayer;
+    GameObject txtHelpersPanel;
+    GameObject closeTutorialBtn;
+
     private void Awake()
     {
-        Destroy(GameObject.Find("Audio"));
-        Destroy(GameObject.Find("MainCanvas"));
-
-        //rimuvere il find
+        //TOFO rimuovere il find
         GameObject canvas = GameObject.Find("Canvas").gameObject;
-        tutorialPanel = canvas.transform.Find("TutorialPanel").gameObject;
 
-        //_quitButton = GameObject.Find("exit").GetComponent<Button>();
-    }
-
-    private void Update()
-    {
-        HideIfClickedOutside(tutorialPanel);
+        videoPlayer = canvas.transform.Find("videoPlayer").gameObject;
+        txtHelpersPanel = canvas.transform.Find("txtHelpersPanel").gameObject;
+        closeTutorialBtn = canvas.transform.Find("closeTutorialBtn").gameObject;
     }
 
     public void Play()
@@ -30,13 +23,13 @@ public class MainMenuController : MonoBehaviour
     }
     public void Quit()
     {
-        print("quit application");
         Application.Quit();
     }
     public void OpenTutorialPanel()
     {
-        tutorialPanel.SetActive(true);
-        //_quitButton.interactable = false;
+        videoPlayer?.SetActive(true);
+        txtHelpersPanel?.SetActive(true);
+        closeTutorialBtn?.SetActive(true);
     }
 
     public void PlaySfx()
@@ -52,20 +45,10 @@ public class MainMenuController : MonoBehaviour
         GameInstance.ToggleQuality();
     }
 
-    private void HideIfClickedOutside(GameObject panel)
+    public void closeTutorialPanel()
     {
-        Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        if (Input.GetMouseButtonDown(0) &&
-            !RectTransformUtility.RectangleContainsScreenPoint(panel.GetComponent<RectTransform>(), mousePosition))
-        {
-            panel.SetActive(false);
-            StartCoroutine(ActivateButtonAfterTime());
-        }
-    }
-
-    IEnumerator ActivateButtonAfterTime()
-    {
-        yield return new WaitForSeconds(1);
-        //_quitButton.interactable = true;
+        videoPlayer?.SetActive(false);
+        txtHelpersPanel?.SetActive(false);
+        closeTutorialBtn?.SetActive(false);
     }
 }
