@@ -67,8 +67,8 @@ public class TableManager : MonoBehaviour
             this.UpdateInfoOfTablePosition();
             if (GameInstance.isSfxPlaying)
             {
-                if (GameManager._audioSource)
-                    GameManager._audioSource.PlayOneShot(_clickSound);
+                if (GameManager.audioSource)
+                    GameManager.audioSource.PlayOneShot(_clickSound);
                 else
                 {
                     Debug.LogError("AudioSource not found");
@@ -106,8 +106,8 @@ public class TableManager : MonoBehaviour
 
             if (GameInstance.isSfxPlaying)
             {
-                if(GameManager._audioSource)
-                GameManager._audioSource.PlayOneShot(_clickSound);
+                if(GameManager.audioSource)
+                GameManager.audioSource.PlayOneShot(_clickSound);
                 else
                 {
                     Debug.LogError("AudioSource not found");

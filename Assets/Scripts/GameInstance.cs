@@ -76,7 +76,9 @@ public class GameInstance : Singleton<GameInstance>
     {
         isMusicPlaying = !isMusicPlaying;
         FindObjectOfType<MusicSingleton>()?.PlayMusic(isMusicPlaying);
-        FindObjectOfType<ControlPanel>()?.ToggleMusicIcon(isMusicPlaying);
+        
+        FindObjectOfType<ControlPanel>()?.ToggleMusicIcon(isMusicPlaying);//btn musica menù principale
+        FindObjectOfType<AudioButton>()?.ToggleMusicIcon(isMusicPlaying); //btn audio tavolo da gioco
     }
     public static void ToggleQuality()
     {

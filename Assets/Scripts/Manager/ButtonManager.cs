@@ -18,11 +18,10 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene((int)Utility.Scene.MainMenu);
     }
 
-    //public void ToggleSound()
-    //{
-    //    GameManager.ShouldPlaySound = !GameManager.ShouldPlaySound;
-    //    GameObject.Find("Audio").GetComponent<AudioSingleton>().PlayMusic();
-    //}
+    public void ToggleSound()
+    {
+        GameInstance.ToggleMusic();
+    }
 
     public void ControlDeck()
     {
