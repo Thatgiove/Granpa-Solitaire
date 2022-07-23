@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
@@ -32,7 +31,7 @@ public class MainMenuController : MonoBehaviour
         videoPlayer?.SetActive(true);
         PlayVideo();
 
-        txtHelpersPanel?.SetActive(true);
+        //txtHelpersPanel?.SetActive(true);
         closeTutorialBtn?.SetActive(true);
     }
 
@@ -43,6 +42,7 @@ public class MainMenuController : MonoBehaviour
     public void PlayMusic()
     {
         GameInstance.ToggleMusic();
+        GameInstance.ToggleSfx();
     }
     public void ToggleQuality()
     {
@@ -54,10 +54,11 @@ public class MainMenuController : MonoBehaviour
         videoPlayer?.SetActive(false);
         ResetVideo();
 
-        txtHelpersPanel?.SetActive(false);
+        //txtHelpersPanel?.SetActive(false);
         closeTutorialBtn?.SetActive(false);
     }
 
+    //Crea un frame nero prima del video
     void ResetVideo()
     {
         var vp = videoPlayer?.GetComponent<VideoPlayer>();

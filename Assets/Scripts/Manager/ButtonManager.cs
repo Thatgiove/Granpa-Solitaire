@@ -21,6 +21,7 @@ public class ButtonManager : MonoBehaviour
     public void ToggleSound()
     {
         GameInstance.ToggleMusic();
+        GameInstance.ToggleSfx();
     }
 
     public void ControlDeck()

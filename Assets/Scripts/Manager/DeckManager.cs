@@ -22,9 +22,10 @@ public class DeckManager : MonoBehaviour
           j = 0.02f;
     const float OFFSET_X = 0.02f,
                 OFFSET_Z = 0.01f;
-    Vector3 DECK_POSITION = new Vector3(0, -1.85f, -1f),
-            OTHER_DECK_POSITION = new Vector3(1, -1.85f, -1.5f), // posizione a lato del principal deck
-            OTHER_DECK_POSITION_TMP = new Vector3(1, -1.85f, -1.5f); // posizione a lato del principal deck
+    //TODO Aggiustare DeckPosition
+    Vector3 DECK_POSITION = new Vector3(0, -1.89f, -1f),
+            OTHER_DECK_POSITION = new Vector3(1, -1.89f, -1.5f), // posizione a lato del principal deck
+            OTHER_DECK_POSITION_TMP = new Vector3(1, -1.89f, -1.5f); // posizione a lato del principal deck
 
 
     void Start()

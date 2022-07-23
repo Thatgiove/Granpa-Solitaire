@@ -8,11 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1865501258358197725}
+  - component: {fileID: 4005892858808976318}
   - component: {fileID: 1865501258358197726}
   - component: {fileID: 1865501258358197712}
   - component: {fileID: 1865501258358197727}
   - component: {fileID: 1865501258358197713}
+  - component: {fileID: 8412107720261527417}
   m_Layer: 0
   m_Name: table_position
   m_TagString: Untagged
@@ -20,7 +21,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1865501258358197725
+--- !u!4 &4005892858808976318
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865501258358197714}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -3.8, y: -0.16, z: 0}
-  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -128,3 +129,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!222 &8412107720261527417
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865501258358197714}
+  m_CullTransparentMesh: 0

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
 
     [SerializeField] private Card cardTemplate;
     [SerializeField] private List<CardInfo> CardInfoList;
+
+    [SerializeField] private GameObject firstCardPosition;
+    [SerializeField] private GameObject matrixCardPosition;
 
 
     public List<Card> cardDeck;
@@ -20,13 +22,15 @@ public class SceneController : MonoBehaviour
         z = 0,
         k = 0;
 
-    public const float OFFSET_X = 0.8f, 
-                OFFSET_Y = 0.1f,
-                OFFSET_Z = 0.01f;
+    public const float MATRIX_OFFSET_X = 0.88f,
+                       MATRIX_OFFSET_Y = 0.07f,
+                       MATRIX_OFFSET_Z = 0.01f;
 
 
     void Awake()
     {
+        GenerateCardsPositionOnTable();
+
         ////////////TODO implementare un finder generico nel global
         GameManager.DeckEmpty = false;
         GameManager.MatrixEmpty = false;
@@ -39,13 +43,13 @@ public class SceneController : MonoBehaviour
         List<Card> CardList = CreateCardsWithInfo(); //crea carte con scriptable object
         List<Card> CardShuffled = ShuffleCard(CardList); //mischia
 
-        this.SplitCards(CardShuffled); 
-
-        this.SetDeckPosition();
-        this.SetMatrixPosition();
-        this.SetPrincipalCard();
-
-
+        SplitCards(CardShuffled);
+       
+        SetDeckPosition();
+        
+        SetMatrixPosition();
+        
+        SetPrincipalCard();
     }
 
     void SplitCards(List<Card> cardShuffled)
@@ -69,10 +73,10 @@ public class SceneController : MonoBehaviour
         {
             foreach (Card card in cardDeck)//posizione e offset asse z del mazzo
             {
-                card.transform.position = new Vector3(0, -1.85f, 0.5f);
+                card.transform.position = new Vector3(0, -1.89f, 0.5f);
 
-                float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
-                card.transform.position = new Vector3(0, -1.85f, posZ);
+                float posZ = -(MATRIX_OFFSET_Z * z) + gameObject.transform.position.z;
+                card.transform.position = new Vector3(0, -1.89f, posZ);
                 z++;
             }
         }
@@ -94,11 +98,13 @@ public class SceneController : MonoBehaviour
                     Card _card = cardListInMatrix[k];
 
                     _card.isMatrix = true;
-                    gameObject.transform.position = new Vector3(-1.3f, 1.9f, -0.8f);//definisco una posizione iniziale
+                   
+                    if(matrixCardPosition)
+                    gameObject.transform.position = matrixCardPosition.transform.position;//definisco una posizione iniziale
 
-                    float posX = (OFFSET_X * i) + gameObject.transform.position.x;
-                    float posY = -(OFFSET_Y * j) + gameObject.transform.position.y;
-                    float posZ = -(OFFSET_Z * z) + gameObject.transform.position.z;
+                    float posX = (MATRIX_OFFSET_X * i) + gameObject.transform.position.x;
+                    float posY = -(MATRIX_OFFSET_Y * j) + gameObject.transform.position.y;
+                    float posZ = -(MATRIX_OFFSET_Z * z) + gameObject.transform.position.z;
 
                     _card.transform.position = new Vector3(posX, posY, posZ);
 
@@ -119,7 +125,18 @@ public class SceneController : MonoBehaviour
         try
         {
             Card principalCard = cardDeck[UnityEngine.Random.Range(0, cardDeck.Count)]; //definisco la principalCard estraendola dal mazzo
-            principalCard.transform.position = new Vector3(-3.79f, -0.3f, -0.5f);
+
+            //la carta principale viene sempre posizionata come prima
+            //firstCardPosition è l'oggetto table_position_1 nella scena
+            if (firstCardPosition)
+            {
+                principalCard.transform.position = firstCardPosition.transform.position;
+            }
+            else
+            {
+                principalCard.transform.position = Vector3.zero;
+            }
+            
             principalCard.isPrincipalCard = true;
         }
         catch (Exception ex)
@@ -129,7 +146,22 @@ public class SceneController : MonoBehaviour
         }
     }
 
-   
+    //genero 9 cardPosition con un offset x di 1
+    //una è già sul tavolo
+    void GenerateCardsPositionOnTable()
+    {
+        if (firstCardPosition)
+        {
+            var startPosition = firstCardPosition.transform.position;
+
+            for (int i = 0; i < 9; i++)
+            {
+                var tablePos = Instantiate(firstCardPosition);
+                tablePos.transform.position = new Vector3(startPosition.x + 0.88f, startPosition.y, 0);
+                startPosition = tablePos.transform.position;
+            }
+        }
+    }
 
     //TODO spostare nel global?
     List<Card> ShuffleCard(List<Card> cardList)
@@ -160,9 +192,10 @@ public class SceneController : MonoBehaviour
             //creo un card template
             //l'oggetto va istanziato come gameObject
             cardClone = Instantiate(cardTemplate) as Card;
-
+            
             //e assegno le informazioni
             cardClone.cardInfo = CardInfoList[i];
+            cardClone.name = cardClone.cardInfo.name;
             cardList.Add(cardClone);
         }
 
