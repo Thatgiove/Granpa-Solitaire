@@ -12,6 +12,7 @@ public class GameInstance : Singleton<GameInstance>
     public static bool isMusicPlaying;
     public static bool isSfxPlaying;
     public static bool isHighQuality;
+    public static bool isTutorialMode;
 
     void Start()
     {
