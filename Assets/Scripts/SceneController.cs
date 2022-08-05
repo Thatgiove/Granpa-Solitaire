@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
+
 public class SceneController : MonoBehaviour
 {
 
@@ -12,10 +14,13 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject firstCardPosition;
     [SerializeField] private GameObject matrixCardPosition;
 
+    [SerializeField] TutorialManager tutorialManager;
 
     public List<Card> cardDeck;
     private List<Card> cardListInMatrix;
     public List<List<Card>> matrix = new List<List<Card>>();
+ 
+
 
     int row = 4, 
         col = 4,  
@@ -50,6 +55,15 @@ public class SceneController : MonoBehaviour
         SetMatrixPosition();
         
         SetPrincipalCard();
+    }
+
+    void Start()
+    {
+        if (GameInstance.isTutorialMode && !GameInstance.isFirstRuleSeen)
+        {
+            tutorialManager?.OpenTutorialPanel(0);
+            GameInstance.isFirstRuleSeen = true;
+        }
     }
 
     void SplitCards(List<Card> cardShuffled)
@@ -120,12 +134,13 @@ public class SceneController : MonoBehaviour
         }
 
     }
+    Card principalCardTMP;
     void SetPrincipalCard()
     {
         try
         {
             Card principalCard = cardDeck[UnityEngine.Random.Range(0, cardDeck.Count)]; //definisco la principalCard estraendola dal mazzo
-
+            principalCardTMP = principalCard;
             //la carta principale viene sempre posizionata come prima
             //firstCardPosition è l'oggetto table_position_1 nella scena
             if (firstCardPosition)
@@ -138,6 +153,8 @@ public class SceneController : MonoBehaviour
             }
             
             principalCard.isPrincipalCard = true;
+
+            GameInstance.principalCard = principalCard;
         }
         catch (Exception ex)
         {

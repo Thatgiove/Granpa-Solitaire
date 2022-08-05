@@ -8,11 +8,16 @@
 public class GameInstance : Singleton<GameInstance>
 {
     public static Texture2D[] CursorIcon = new Texture2D[3];
+    public static Card principalCard;
 
     public static bool isMusicPlaying;
     public static bool isSfxPlaying;
     public static bool isHighQuality;
     public static bool isTutorialMode;
+    
+    public static bool isFirstRuleSeen = false;
+    public static bool isSecondRuleSeen = false;
+    public static bool isThirdRuleSeen = false;
 
     void Start()
     {

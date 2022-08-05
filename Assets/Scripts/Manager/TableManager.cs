@@ -10,20 +10,18 @@ using UnityEngine;
 ///E' LA POSIZIONE DELLA CARTA PRINCIPALE. IN BASE A
 ///QUESTE PROPRIETA' VENGONO EFFETTUATI DEI CONTROLLI
 ///NEI METODI CanPutInRow() E CanPutInCol()
-
 /// </summary>
-
-
 
 public class TableManager : MonoBehaviour
 {
-
+    [SerializeField] TutorialManager tutorialManager;
     //////////PROPRIETA' DELL'IESIMO ELEMENTO DELLA TABLE POSITION//////////////////////
     public int cardCounter = 0;
     public int currentCardId = 0;
     public bool iSPrincipalCardline = false;
-    bool triggeringRow = false;
-    bool triggeringCol = false;
+    public bool triggeringRow = false;
+    public bool triggeringCol = false;
+
     public List<string> listOfCarfInTable = new List<string>();
     /////////////////////////////////////////////////////////////////////////////////
 
@@ -31,18 +29,19 @@ public class TableManager : MonoBehaviour
     DeckManager _deckManager;
     MatrixManager _matrixManager;
     AudioClip _clickSound;
+
     void Start()
     {
         _deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
-        //_soundEffect = GameObject.Find("ClickEffect").GetComponent<AudioSource>();
-        
         _clickSound = (AudioClip)Resources.Load("Audio/click");
+
         if (!_clickSound)
         {
             Debug.LogError("AudioClip not found");
         }
     }
+
     void Update()
     {
         if (card == null) return;
@@ -74,7 +73,13 @@ public class TableManager : MonoBehaviour
                     Debug.LogError("AudioSource not found");
                 }
             }
-            
+
+            if (GameInstance.isTutorialMode && !GameInstance.isSecondRuleSeen && !card.isPrincipalCard)
+            {
+                GameInstance.isSecondRuleSeen = true;
+                tutorialManager?.OpenTutorialPanel(1);
+            }
+
             triggeringRow = false;
         }
         else if (Input.GetMouseButtonUp(0) && triggeringCol)
@@ -113,10 +118,19 @@ public class TableManager : MonoBehaviour
                     Debug.LogError("AudioSource not found");
                 }
             }
+
+            if (GameInstance.isTutorialMode && !GameInstance.isThirdRuleSeen)
+            {
+                GameInstance.isThirdRuleSeen = true;
+                tutorialManager?.SetThirdRule(card.cardInfo.Description);
+                tutorialManager?.OpenTutorialPanel(2);
+            }
+     
             triggeringCol = false;
         }
          
     }
+
 
     private void OnTriggerExit(Collider other)
     {

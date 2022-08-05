@@ -16,6 +16,12 @@ public class ButtonManager : MonoBehaviour
     {
         GameManager.PrincipalCardSeedList = new List<string>();
         SceneManager.LoadScene((int)Utility.Scene.MainMenu);
+
+        GameInstance.isTutorialMode = false;
+
+        GameInstance.isFirstRuleSeen = false;
+        GameInstance.isSecondRuleSeen = false;
+        GameInstance.isThirdRuleSeen = false;
     }
 
     public void ToggleSound()
