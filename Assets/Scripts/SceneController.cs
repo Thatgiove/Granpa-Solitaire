@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AllIn1SpriteShader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -208,8 +209,12 @@ public class SceneController : MonoBehaviour
             Card cardClone;
             //creo un card template
             //l'oggetto va istanziato come gameObject
-            cardClone = Instantiate(cardTemplate) as Card;
-            
+            cardClone = Instantiate(cardTemplate);
+
+            //cardClone.gameObject.AddComponent<AllIn1Shader>();
+        
+            cardClone.gameObject.AddComponent<Animator>();
+
             //e assegno le informazioni
             cardClone.cardInfo = CardInfoList[i];
             cardClone.name = cardClone.cardInfo.name;

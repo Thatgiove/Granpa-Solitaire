@@ -81,6 +81,7 @@ public class TableManager : MonoBehaviour
             }
 
             triggeringRow = false;
+            card.GetComponent<Animator>()?.SetTrigger("CardShine");
         }
         else if (Input.GetMouseButtonUp(0) && triggeringCol)
         {
@@ -127,6 +128,8 @@ public class TableManager : MonoBehaviour
             }
      
             triggeringCol = false;
+
+            card.GetComponent<Animator>()?.SetTrigger("CardShine");
         }
          
     }
