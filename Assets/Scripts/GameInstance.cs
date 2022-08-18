@@ -21,6 +21,8 @@ public class GameInstance : Singleton<GameInstance>
 
     void Start()
     {
+        //QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 30;
         SetMouseCursor();
     }
 
@@ -31,6 +33,10 @@ public class GameInstance : Singleton<GameInstance>
 
         if (Input.GetMouseButtonUp(0))
             HandCursor();
+
+        //esci col tasto back da mobile
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     void SetMouseCursor()

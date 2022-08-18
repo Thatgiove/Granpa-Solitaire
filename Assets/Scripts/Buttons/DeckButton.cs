@@ -7,8 +7,8 @@ public class DeckButton : MonoBehaviour
     float value = 0;
     float valueFI = 0;
     
-    float shineAmount = 0.09f;
-    float fishEyeAmount = 0.1f;
+    float shineAmount = 0.8f;
+    float fishEyeAmount = 0.4f;
 
     bool toRx;
     bool toRxFI;
@@ -18,7 +18,7 @@ public class DeckButton : MonoBehaviour
         mat = GetComponent<Image>().material;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (mat.GetFloat("_ShineLocation") <= 0) { toRx = true; }
         else if (mat.GetFloat("_ShineLocation") >= 1) { toRx = false; }
@@ -36,7 +36,8 @@ public class DeckButton : MonoBehaviour
         else
             valueFI -= fishEyeAmount;
 
-        mat.SetFloat("_ShineLocation", value * Time.fixedDeltaTime);
-        mat.SetFloat("_FishEyeUvAmount", valueFI * Time.fixedDeltaTime);
+
+        mat.SetFloat("_ShineLocation", value * Time.deltaTime);
+        mat.SetFloat("_FishEyeUvAmount", valueFI * Time.deltaTime);
     }
 }

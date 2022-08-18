@@ -4,21 +4,21 @@
       "RuleName": "firstRule",
       "RulesDescription": [
         "Benvenuto ne IL SOLITARIO DEL NONNO! Lo scopo del gioco è quello di posizionare tutte le carte sul tavolo",
-        "La regola principale è la seguente: In <color=#FF0000> FILA </color> le carte dello stesso seme, in <color=#FF0000> COLONNA </color> quelle con lo stesso numero",
-        "Puoi mettere in fila le carte dello stesso SEME della CARTA PRINCIPALE A SINISTRA, in questo caso <color=#FF0000> * </color>",
+        "La regola principale è la seguente: In <color=#0000FF> FILA </color> le carte dello stesso seme, in <color=#0000FF> COLONNA </color> quelle con lo stesso numero",
+        "Puoi mettere in fila le carte dello stesso SEME della CARTA PRINCIPALE A SINISTRA, in questo caso <color=#0000FF> * </color>",
         "Cerca le carte nei mazzetti in alto oppure in basso scorrendo il mazzo di tre carte. Se non trovi nulla clicca sul pulsante in alto a destra"
       ]
     },
     {
       "RuleName": "secondRule",
       "RulesDescription": [
-        "BEN FATTO! Ora cerca una carta che abbia lo stesso NUMERO della carta principale, in questo caso <color=#FF0000> * </color>"
+        "BEN FATTO! Ora cerca una carta che abbia lo stesso NUMERO della carta principale, in questo caso <color=#0000FF> * </color> e mettila sopra" 
       ]
     },
     {
       "RuleName": "thirdRule",
       "RulesDescription": [
-        "Ora la seconda fila sarà del seme di <color=#FF0000> * </color>. Ricorda che comanda la carta principale per le file successive"
+        "Ora la seconda fila sarà del seme di <color=#0000FF> * </color>. Ricorda che comanda la carta principale per le file successive"
       ]
     }
 
