@@ -44,7 +44,7 @@ public class Card : MonoBehaviour
         canDrag = true;
         canPutOnTable = false;
         canPutInCol = false;
-        gameObject.transform.localScale = new Vector3(0.18f, 0.18f, 0.18f);
+        gameObject.transform.localScale = new Vector3(30f, 30f, 30f);
 
         _spriteRenderer.sprite = cardInfo.CardImage;
     

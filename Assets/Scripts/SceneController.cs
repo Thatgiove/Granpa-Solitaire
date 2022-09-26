@@ -20,8 +20,9 @@ public class SceneController : MonoBehaviour
     public List<Card> cardDeck;
     private List<Card> cardListInMatrix;
     public List<List<Card>> matrix = new List<List<Card>>();
- 
 
+
+    public GameObject can; 
 
     int row = 4, 
         col = 4,  
@@ -115,7 +116,7 @@ public class SceneController : MonoBehaviour
                     _card.isMatrix = true;
                    
                     if(matrixCardPosition)
-                    gameObject.transform.position = matrixCardPosition.transform.position;//definisco una posizione iniziale
+                    gameObject.transform.localPosition = matrixCardPosition.transform.transform.position;//definisco una posizione iniziale
 
                     float posX = (MATRIX_OFFSET_X * i) + gameObject.transform.position.x;
                     float posY = -(MATRIX_OFFSET_Y * j) + gameObject.transform.position.y;
@@ -156,6 +157,7 @@ public class SceneController : MonoBehaviour
             principalCard.isPrincipalCard = true;
 
             GameInstance.principalCard = principalCard;
+            print(principalCard);
         }
         catch (Exception ex)
         {
@@ -168,17 +170,7 @@ public class SceneController : MonoBehaviour
     //una è già sul tavolo
     void GenerateCardsPositionOnTable()
     {
-        if (firstCardPosition)
-        {
-            var startPosition = firstCardPosition.transform.position;
-
-            for (int i = 0; i < 9; i++)
-            {
-                var tablePos = Instantiate(firstCardPosition);
-                tablePos.transform.position = new Vector3(startPosition.x + 0.88f, startPosition.y, 0);
-                startPosition = tablePos.transform.position;
-            }
-        }
+       
     }
 
     //TODO spostare nel global?
@@ -218,7 +210,10 @@ public class SceneController : MonoBehaviour
             //e assegno le informazioni
             cardClone.cardInfo = CardInfoList[i];
             cardClone.name = cardClone.cardInfo.name;
+            if (can)
+                cardClone.gameObject.transform.parent = can.transform;
             cardList.Add(cardClone);
+
         }
 
         return cardList;
