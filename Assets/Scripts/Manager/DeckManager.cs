@@ -25,15 +25,24 @@ public class DeckManager : MonoBehaviour
     float  offset_X = Screen.width <= 1920 ? 1.5f : 2f,
            offset_Z = 0.01f;
 
-    //TODO Aggiustare DeckPosition
-    Vector3 DECK_POSITION = new Vector3(0, -1.89f, -1f),
-            OTHER_DECK_POSITION = new Vector3(1, -1.89f, -1.5f), // posizione a lato del principal deck
-            OTHER_DECK_POSITION_TMP = new Vector3(1, -1.89f, -1.5f); // posizione a lato del principal deck
+    Vector3 DECK_POSITION ,
+            OTHER_DECK_POSITION, // posizione a lato del principal deck
+            OTHER_DECK_POSITION_TMP; // posizione a lato del principal deck
 
+    SceneController sceneController;
 
     void Start()
     {
-        Deck = GameObject.Find("SceneController").GetComponent<SceneController>().cardDeck;
+        sceneController = FindObjectOfType<SceneController>();
+        
+        if (sceneController)
+        {
+            Deck = sceneController.cardDeck;
+            DECK_POSITION = sceneController.deckCardPosition.transform.position;
+            OTHER_DECK_POSITION = DECK_POSITION;
+            OTHER_DECK_POSITION_TMP = DECK_POSITION;
+        }
+
         foreach (var card in Deck)
         {
             card.canDrag = false; //le carte  del mazzo non sono selezionabili

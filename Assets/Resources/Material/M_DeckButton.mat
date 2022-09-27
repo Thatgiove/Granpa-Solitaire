@@ -148,7 +148,7 @@ Material:
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
-    - _FishEyeUvAmount: 0.024
+    - _FishEyeUvAmount: 0.072000004
     - _FlickerAlpha: 0.179
     - _FlickerFreq: 1.51
     - _FlickerPercent: 0.17
@@ -235,7 +235,7 @@ Material:
     - _ShakeUvX: 2.55
     - _ShakeUvY: 1
     - _ShineGlow: 66.3
-    - _ShineLocation: 0.5279999
+    - _ShineLocation: 0.112000026
     - _ShineRotate: 0
     - _ShineWidth: 0.102
     - _SmoothnessTextureChannel: 0

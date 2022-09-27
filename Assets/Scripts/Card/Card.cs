@@ -13,10 +13,12 @@ public class Card : MonoBehaviour
     public bool canPutInCol;
     public bool isMatrix;
     public bool isPrincipalCard;
+
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
+        gameObject.AddComponent<RectTransform>();
         mat = Resources.Load("Material/CardMaterial", typeof(Material)) as Material;
         
         mat?.EnableKeyword("GLOW_ON");
@@ -45,6 +47,7 @@ public class Card : MonoBehaviour
         canPutOnTable = false;
         canPutInCol = false;
         gameObject.transform.localScale = new Vector3(30f, 30f, 30f);
+        gameObject.transform.position = new Vector3(30f, -330f, 30f);
 
         _spriteRenderer.sprite = cardInfo.CardImage;
     
@@ -84,9 +87,11 @@ public class Card : MonoBehaviour
             GameInstance.GrabCursor();
             float distanceToScreen = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             Vector3 pos_move = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, distanceToScreen));
-            
+
+            var zPos = transform.localPosition.z;
             //per mettere in evidenza la posizione z della carta selezionata
-            transform.position = new Vector3(pos_move.x, pos_move.y, pos_move.z <= -2 ? pos_move.z = -2f : pos_move.z - 1f);
+            transform.position = new Vector3(pos_move.x, pos_move.y, zPos >= -600 ? pos_move.z -= 1f : zPos = pos_move.z);
+
         }
     }
 

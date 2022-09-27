@@ -143,6 +143,7 @@ public class TableManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        //print(this.gameObject.name + " . " + other.gameObject.name);
         card = other.gameObject.GetComponent<Card>();
 
         //if (card.isPrincipalCard)
