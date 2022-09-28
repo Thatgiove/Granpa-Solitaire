@@ -7,13 +7,15 @@ using UnityEngine;
  * classe che si occupa dell'avanzamento delle carte nel mazzo
  * seleziono tre carte dal mazzo e le metto in un mazzo temporaneo 
  * quando finiscono inverto l'operazione
- * 
- * 
  * **************/
 
 public class DeckManager : MonoBehaviour
 {
     [SerializeField] GameObject cardBack;
+
+    [SerializeField] GameObject deckPosition;
+    [SerializeField] GameObject secondDeckPosition;
+
     List<Card> CardsSelected;
 
     public List<Card> Deck;
@@ -22,12 +24,8 @@ public class DeckManager : MonoBehaviour
     float Xindex = 0.05f,
           Zindex = 0.02f;
 
-    float  offset_X = Screen.width <= 1920 ? 1.5f : 2f,
+    float  offset_X = 1.5f ,
            offset_Z = 0.01f;
-
-    Vector3 DECK_POSITION ,
-            OTHER_DECK_POSITION, // posizione a lato del principal deck
-            OTHER_DECK_POSITION_TMP; // posizione a lato del principal deck
 
     SceneController sceneController;
 
@@ -38,9 +36,6 @@ public class DeckManager : MonoBehaviour
         if (sceneController)
         {
             Deck = sceneController.cardDeck;
-            DECK_POSITION = sceneController.deckCardPosition.transform.position;
-            OTHER_DECK_POSITION = DECK_POSITION;
-            OTHER_DECK_POSITION_TMP = DECK_POSITION;
         }
 
         foreach (var card in Deck)
@@ -99,10 +94,8 @@ public class DeckManager : MonoBehaviour
             foreach (Card card in Deck)
             {
                 card.canDrag = false;
-                card.transform.position = DECK_POSITION;
+                card.transform.position = deckPosition.transform.position;
             }
-
-            OTHER_DECK_POSITION_TMP = OTHER_DECK_POSITION; //reset della nuova posizione
 
             foreach (Card card in Deck_tmp)
             {
@@ -119,7 +112,7 @@ public class DeckManager : MonoBehaviour
     {
         card.canDrag = false;
 
-        card.transform.position = OTHER_DECK_POSITION_TMP;
+        card.transform.position = secondDeckPosition.transform.position;
 
         float posX = (offset_X * Xindex) + card.transform.position.x;
         float posZ = -(offset_Z * Zindex) + card.transform.position.z;
@@ -127,9 +120,8 @@ public class DeckManager : MonoBehaviour
         card.transform.position = new Vector3(posX, card.transform.position.y, posZ);
 
         //Xindex per creare spazio tra le carte, Zindex per riuscire a prendere l'ultima
-        Xindex += 0.09f;
+        Xindex += 0.1f;
         Zindex += 0.01f;
-        
     }
 
     public void RemoveCardFromDecks(Card card)
@@ -165,16 +157,6 @@ public class DeckManager : MonoBehaviour
     bool IsMainDeckEmpty()
     {
         return Deck.Count == 0;
-    }
-
-    [ContextMenu("DESTROY_DECK_TEST")]
-    void DESTROY_DECK()
-    {
-        Deck.Clear();
-        Deck_tmp.Clear();
-
-        if (DeckIsEmpty())
-            GameManager.DeckEmpty = true;
     }
 }
 

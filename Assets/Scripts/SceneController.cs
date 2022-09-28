@@ -94,6 +94,7 @@ public class SceneController : MonoBehaviour
             float posY = -(MATRIX_OFFSET_Y * i) + m1Position.transform.position.y;
             float posZ = -(MATRIX_OFFSET_Z * i) + m1Position.transform.position.z;
             m1[i].transform.position = new Vector3(m1Position.transform.position.x, posY, posZ);
+            m1[i].isMatrix = true;
         }
         
         for (int i = 0; i < m2.Count; i++)
@@ -101,6 +102,7 @@ public class SceneController : MonoBehaviour
             float posY = -(MATRIX_OFFSET_Y * i) + m2Position.transform.position.y;
             float posZ = -(MATRIX_OFFSET_Z * i) + m2Position.transform.position.z;
             m2[i].transform.position = new Vector3(m2Position.transform.position.x, posY, posZ);
+            m2[i].isMatrix = true;
         }
         
         for (int i = 0; i < m3.Count; i++)
@@ -108,6 +110,7 @@ public class SceneController : MonoBehaviour
             float posY = -(MATRIX_OFFSET_Y * i) + m3Position.transform.position.y;
             float posZ = -(MATRIX_OFFSET_Z * i) + m3Position.transform.position.z;
             m3[i].transform.position = new Vector3(m3Position.transform.position.x, posY, posZ);
+            m3[i].isMatrix = true;
         }
       
         for (int i = 0; i < m4.Count; i++)
@@ -115,6 +118,7 @@ public class SceneController : MonoBehaviour
             float posY = -(MATRIX_OFFSET_Y * i) + m4Position.transform.position.y;
             float posZ = -(MATRIX_OFFSET_Z * i) + m4Position.transform.position.z;
             m4[i].transform.position = new Vector3(m4Position.transform.position.x, posY, posZ);
+            m4[i].isMatrix = true;
         }
     }
 

@@ -13,40 +13,17 @@ public class MatrixManager : MonoBehaviour
 
     void Start()
     {
-        _sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
-        this.matrix = _sceneController.matrix;
-        this.fakeMatrix = _sceneController.matrix;
+        _sceneController = FindObjectOfType<SceneController>();
+        if (_sceneController)
+        {
+            matrix = _sceneController.matrix;
+            fakeMatrix = _sceneController.matrix;
+        }
 
         TakeLastCardInMatrix(this.matrix);
     }
 
-    [ContextMenu("DESTROY_MATRIX_TEST")]
-    void DESTROY_MATRIX()
-    {
-
-        
-            for (int j = 0; j < fakeMatrix[0].Count; j++)
-            {
-            fakeMatrix[0].Clear();
-            }
-        for (int j = 0; j < fakeMatrix[1].Count; j++)
-            {
-            fakeMatrix[1].Clear();
-            }
-        for (int j = 0; j < fakeMatrix[2].Count; j++)
-            {
-            fakeMatrix[2].Clear();
-        }
-        for (int j = 0; j < fakeMatrix[3].Count; j++)
-            {
-            fakeMatrix[3].Clear();
-        }
-        
-
-        if (MatrixIsEmpty())
-            GameManager.MatrixEmpty = true;  
-    }
-
+  
     public void TakeLastCardInMatrix(List<List<Card>> listOfLists)
     {
         foreach (var item in listOfLists)
