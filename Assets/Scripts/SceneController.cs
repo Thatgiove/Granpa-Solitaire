@@ -32,8 +32,8 @@ public class SceneController : MonoBehaviour
 
 
 
-    public const float MATRIX_OFFSET_Y = .2f,
-                       MATRIX_OFFSET_Z = .1f;
+    public const float MATRIX_OFFSET_Y = .08f,
+                       MATRIX_OFFSET_Z = .2f;
 
 
     void Awake()
@@ -128,13 +128,14 @@ public class SceneController : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         var z = 0;
+
         foreach (Card card in cardDeck)//posizione e offset asse z del mazzo
         {
             if (card.isPrincipalCard) continue;
 
             card.transform.position = deckCardPosition.transform.position;
 
-            float posZ = -(MATRIX_OFFSET_Z * z) + deckCardPosition.transform.position.z;
+            float posZ = deckCardPosition.transform.position.z  + (MATRIX_OFFSET_Z * z);
             card.transform.position = new Vector3(
                 deckCardPosition.transform.position.x,
                 deckCardPosition.transform.position.y,

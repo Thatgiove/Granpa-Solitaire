@@ -11,7 +11,6 @@ Material:
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_ValidKeywords:
   - FISHEYE_ON
-  - GREYSCALE_ON
   - SHINE_ON
   m_InvalidKeywords:
   - ETC1_EXTERNAL_ALPHA
@@ -148,7 +147,7 @@ Material:
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
-    - _FishEyeUvAmount: 0.12800002
+    - _FishEyeUvAmount: 0.056
     - _FlickerAlpha: 0.179
     - _FlickerFreq: 1.51
     - _FlickerPercent: 0.17
@@ -235,7 +234,7 @@ Material:
     - _ShakeUvX: 2.55
     - _ShakeUvY: 1
     - _ShineGlow: 66.3
-    - _ShineLocation: 0.83199954
+    - _ShineLocation: 0.30400008
     - _ShineRotate: 0
     - _ShineWidth: 0.102
     - _SmoothnessTextureChannel: 0

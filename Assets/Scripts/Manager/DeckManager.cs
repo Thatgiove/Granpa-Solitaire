@@ -11,9 +11,7 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    [SerializeField] GameObject cardBack;
-
-    [SerializeField] GameObject deckPosition;
+    [SerializeField] GameObject deckButton;
     [SerializeField] GameObject secondDeckPosition;
 
     List<Card> CardsSelected;
@@ -94,7 +92,7 @@ public class DeckManager : MonoBehaviour
             foreach (Card card in Deck)
             {
                 card.canDrag = false;
-                card.transform.position = deckPosition.transform.position;
+                card.transform.position = deckButton.transform.position;
             }
 
             foreach (Card card in Deck_tmp)
@@ -105,7 +103,7 @@ public class DeckManager : MonoBehaviour
             Deck_tmp.Last().canDrag = true;
         }
 
-        cardBack?.SetActive(!IsMainDeckEmpty());
+        //cardBack?.SetActive(!IsMainDeckEmpty());
     }
 
     void CalculateOffSet(Card card)

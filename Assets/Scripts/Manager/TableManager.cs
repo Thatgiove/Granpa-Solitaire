@@ -94,7 +94,7 @@ public class TableManager : MonoBehaviour
             //posizione della carta con offset
             card.transform.position = new Vector3(
                 gameObject.transform.position.x,
-                gameObject.transform.position.y - (cardCounter * 0.22f),
+                gameObject.transform.position.y - (cardCounter * 0.17f),
                 gameObject.transform.position.z - (cardCounter * 0.3f));
 
             card.canPutOnTable = true;
