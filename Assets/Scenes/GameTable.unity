@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 22926315}
   - component: {fileID: 22926317}
   - component: {fileID: 22926316}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: okTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,6 +268,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1113397160}
     m_Modifications:
+    - target: {fileID: 1865501258358197712, guid: 253150b5ce60bf3409ae0a174c6659a6,
+        type: 3}
+      propertyPath: tutorialManager
+      value: 
+      objectReference: {fileID: 888468295}
     - target: {fileID: 1865501258358197714, guid: 253150b5ce60bf3409ae0a174c6659a6,
         type: 3}
       propertyPath: m_Name
@@ -555,7 +560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 128509224}
   - component: {fileID: 128509226}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TMP SubMeshUI [Coffee for Breakfast SDF Material + LiberationSans SDF Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1491,7 +1496,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4ab9ed4e52b8385479e1a4348c147046, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c61803e1647e5e4e814ad0ed60814d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2259,7 +2264,7 @@ GameObject:
   - component: {fileID: 522204414}
   - component: {fileID: 522204416}
   - component: {fileID: 522204415}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: firstRuleTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3354,7 +3359,7 @@ GameObject:
   - component: {fileID: 888468292}
   - component: {fileID: 888468291}
   - component: {fileID: 888468295}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: tutorialCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3746,7 +3751,7 @@ GameObject:
   - component: {fileID: 1089582789}
   - component: {fileID: 1089582791}
   - component: {fileID: 1089582790}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: firstRule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3911,7 +3916,7 @@ GameObject:
   - component: {fileID: 1172869862}
   - component: {fileID: 1172869861}
   - component: {fileID: 1172869860}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: okBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

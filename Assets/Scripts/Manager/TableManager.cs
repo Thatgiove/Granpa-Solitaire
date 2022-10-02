@@ -14,7 +14,7 @@ using UnityEngine;
 
 public class TableManager : MonoBehaviour
 {
-    [SerializeField] TutorialManager tutorialManager;
+    TutorialManager tutorialManager;
     //////////PROPRIETA' DELL'IESIMO ELEMENTO DELLA TABLE POSITION//////////////////////
     public int cardCounter = 0;
     public int currentCardId = 0;
@@ -35,6 +35,7 @@ public class TableManager : MonoBehaviour
         _deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         _matrixManager = GameObject.Find("Matrix").GetComponent<MatrixManager>();
         _clickSound = (AudioClip)Resources.Load("Audio/click");
+        tutorialManager = Resources.FindObjectsOfTypeAll<TutorialManager>()?[0];
 
         if (!_clickSound)
         {
