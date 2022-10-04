@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 /******************
@@ -103,7 +104,7 @@ public class DeckManager : MonoBehaviour
             Deck_tmp.Last().canDrag = true;
         }
 
-        //cardBack?.SetActive(!IsMainDeckEmpty());
+        SetCardBackAlpha(IsMainDeckEmpty());
     }
 
     void CalculateOffSet(Card card)
@@ -155,6 +156,20 @@ public class DeckManager : MonoBehaviour
     bool IsMainDeckEmpty()
     {
         return Deck.Count == 0;
+    }
+    void SetCardBackAlpha(bool isMainDeckEmpty)
+    {
+        var img = deckButton.GetComponent<Image>();
+        if (img == null) return;
+
+        if (isMainDeckEmpty)
+        {
+            img.color = new Color(img.color.r, img.color.g, img.color.b, .3f); ;
+        }
+        else
+        {
+            img.color = new Color(img.color.r, img.color.g, img.color.b, 1f); ;
+        }
     }
 }
 
