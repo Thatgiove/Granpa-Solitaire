@@ -21,6 +21,7 @@ public class TableManager : MonoBehaviour
     public bool iSPrincipalCardline = false;
     public bool triggeringRow = false;
     public bool triggeringCol = false;
+    public bool isMatrix = false;
 
     public List<string> listOfCarfInTable = new List<string>();
     /////////////////////////////////////////////////////////////////////////////////
@@ -144,18 +145,8 @@ public class TableManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //print(this.gameObject.name + " . " + other.gameObject.name);
         card = other.gameObject.GetComponent<Card>();
 
-        //if (card.isPrincipalCard)
-        //{
-        //    iSPrincipalCardline = true;
-        //    Manager.PrincipalCardSeedList.Add(card.cardInfo.Description);
-        //    card.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
-        //    card.canDrag = false;
-        //    card.canPutOnTable = true;
-        //    _soundEffect.Play();
-        //}
         if (CanPutInRow())
         {
             triggeringRow = true;
@@ -174,16 +165,18 @@ public class TableManager : MonoBehaviour
         this.listOfCarfInTable.Add(card.cardInfo.Description);
     }
 
-    bool CanPutInRow()
+    public bool CanPutInRow(Card _card = null)
     {
-        return card.cardInfo.Description == GameManager.PrincipalCardSeed && cardCounter < 1;
+        if (!_card) _card = card;
+        return _card.cardInfo.Description == GameManager.PrincipalCardSeed && cardCounter < 1;
     }
 
-    bool CanPutInCol()
+    public bool CanPutInCol(Card _card = null)
     {
-        return card.cardInfo.Id == currentCardId && cardCounter >= 1 &&
+        if (!_card) _card = card;
+        return _card.cardInfo.Id == currentCardId && cardCounter >= 1 &&
             (iSPrincipalCardline ||
             GameManager.PrincipalCardSeedList.Count > cardCounter && //previene l'outOfBound
-            GameManager.PrincipalCardSeedList[cardCounter] == card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
+            GameManager.PrincipalCardSeedList[cardCounter] == _card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
     }
 }

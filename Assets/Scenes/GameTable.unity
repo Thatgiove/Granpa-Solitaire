@@ -2301,6 +2301,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243088099}
     m_Modifications:
+    - target: {fileID: 1865501258358197712, guid: 253150b5ce60bf3409ae0a174c6659a6,
+        type: 3}
+      propertyPath: isMatrix
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1865501258358197714, guid: 253150b5ce60bf3409ae0a174c6659a6,
         type: 3}
       propertyPath: m_Name
@@ -2765,6 +2770,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243088099}
     m_Modifications:
+    - target: {fileID: 1865501258358197712, guid: 253150b5ce60bf3409ae0a174c6659a6,
+        type: 3}
+      propertyPath: isMatrix
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1865501258358197714, guid: 253150b5ce60bf3409ae0a174c6659a6,
         type: 3}
       propertyPath: m_Name
@@ -3106,6 +3116,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243088099}
     m_Modifications:
+    - target: {fileID: 1865501258358197712, guid: 253150b5ce60bf3409ae0a174c6659a6,
+        type: 3}
+      propertyPath: isMatrix
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1865501258358197714, guid: 253150b5ce60bf3409ae0a174c6659a6,
         type: 3}
       propertyPath: m_Name
@@ -4406,8 +4421,8 @@ MonoBehaviour:
   m2Position: {fileID: 601780331}
   m3Position: {fileID: 1668515131}
   m4Position: {fileID: 164251752}
-  deckCardPosition: {fileID: 326900100}
   tutorialManager: {fileID: 888468295}
+  deckManager: {fileID: 1434369586}
   cardDeck: []
   mainCanvas: {fileID: 2009382391}
 --- !u!4 &1553658846
@@ -5114,7 +5129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 197.78, y: 144.09998}
+  m_AnchoredPosition: {x: 130.3, y: 144.09998}
   m_SizeDelta: {x: 241.88, y: 151.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2046457606
@@ -5192,6 +5207,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 243088099}
     m_Modifications:
+    - target: {fileID: 1865501258358197712, guid: 253150b5ce60bf3409ae0a174c6659a6,
+        type: 3}
+      propertyPath: isMatrix
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1865501258358197714, guid: 253150b5ce60bf3409ae0a174c6659a6,
         type: 3}
       propertyPath: m_Name

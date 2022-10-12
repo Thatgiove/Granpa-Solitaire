@@ -19,9 +19,8 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject m2Position;
     [SerializeField] private GameObject m3Position;
     [SerializeField] private GameObject m4Position;
-    public GameObject deckCardPosition;
-
     [SerializeField] TutorialManager tutorialManager;
+    [SerializeField] DeckManager deckManager;
 
     public List<Card> cardDeck;
     private List<Card> cardListInMatrix;
@@ -124,25 +123,12 @@ public class SceneController : MonoBehaviour
 
     IEnumerator SetDeckPosition()
     {
-        if (!deckCardPosition) yield return null;
+        if (!deckManager) yield return null;
         yield return new WaitForEndOfFrame();
 
-        var z = 0;
-
-        foreach (Card card in cardDeck)//posizione e offset asse z del mazzo
-        {
-            if (card.isPrincipalCard) continue;
-
-            card.transform.position = deckCardPosition.transform.position;
-
-            float posZ = deckCardPosition.transform.position.z  + (MATRIX_OFFSET_Z * z);
-            card.transform.position = new Vector3(
-                deckCardPosition.transform.position.x,
-                deckCardPosition.transform.position.y,
-                posZ);
-            z++;
-        }
-
+        deckManager.Deck = cardDeck;
+        deckManager.BlockDeck();
+        deckManager.SetDeckPosition();
     }
 
     void SplitCards(List<Card> cardShuffled)
