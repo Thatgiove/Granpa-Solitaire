@@ -14,6 +14,7 @@ public class DeckManager : MonoBehaviour
 {
     public GameObject deckButton;
     [SerializeField] GameObject secondDeckPosition;
+    [SerializeField] GameObject restartTxt;
 
     List<Card> CardsSelected;
 
@@ -24,7 +25,7 @@ public class DeckManager : MonoBehaviour
           Zindex = 0.02f;
 
     float  offset_X = 1.5f ,
-           offset_Z = 0.01f;
+           offset_Z = 0.08f;
 
     void Start()
     {
@@ -50,9 +51,9 @@ public class DeckManager : MonoBehaviour
             SetDeckPosition();
             BlockDeck();
 
-            if (!CalculateDeckMoves(Deck))
+            if (!CheckMatrixMoves() && !CheckDeckMoves(Deck))
             {
-                print("SEI BLOCCATO STRONZO!!!!!!!!!!!!!!!!!");
+                restartTxt.SetActive(true);
             };
         }
 
@@ -108,7 +109,7 @@ public class DeckManager : MonoBehaviour
     //per calcolare le possibili mosse nel mazzo, scorro di 3 partendo dalla cima
     //e verifico se per ogni tableManager nel tavolo da gioco (10)
     //posso mettere in riga o in colonna
-    public bool CalculateDeckMoves(List<Card> _deck)
+    public bool CheckDeckMoves(List<Card> _deck)
     {
         var tableManagerList = FindObjectsOfType<TableManager>();
 
@@ -120,6 +121,31 @@ public class DeckManager : MonoBehaviour
                                      tm.CanPutInCol(_deck[0]) ||
                                      tm.CanPutInRow(_deck[i]) ||
                                      tm.CanPutInCol(_deck[i])))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    bool CheckMatrixMoves()
+    {
+        var sceneController = FindObjectOfType<SceneController>();
+        var tableManagerList = FindObjectsOfType<TableManager>();
+
+        if (sceneController)
+        {
+            foreach (var tm in tableManagerList)
+            {
+                var matrix = sceneController.matrix;
+
+                if (!tm.isMatrix && (matrix[0].Any() && (tm.CanPutInRow(matrix[0].Last()) || tm.CanPutInCol(matrix[0].Last())) ||
+                                     matrix[1].Any() && (tm.CanPutInRow(matrix[1].Last()) || tm.CanPutInCol(matrix[1].Last())) ||
+                                     matrix[2].Any() && (tm.CanPutInRow(matrix[2].Last()) || tm.CanPutInCol(matrix[2].Last())) ||
+                                     matrix[3].Any() && (tm.CanPutInRow(matrix[3].Last()) || tm.CanPutInCol(matrix[3].Last())) 
+                                     ))
                 {
                     return true;
                 }
@@ -142,7 +168,7 @@ public class DeckManager : MonoBehaviour
 
         //Xindex per creare spazio tra le carte, Zindex per riuscire a prendere l'ultima
         Xindex += 0.08f;
-        Zindex += 0.04f;
+        Zindex += 0.15f;
     }
 
     public void RemoveCardFromDecks(Card card)

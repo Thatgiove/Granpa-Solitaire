@@ -21,6 +21,7 @@ public class SceneController : MonoBehaviour
     [SerializeField] private GameObject m4Position;
     [SerializeField] TutorialManager tutorialManager;
     [SerializeField] DeckManager deckManager;
+    [SerializeField] GameObject restartTxt;
 
     public List<Card> cardDeck;
     private List<Card> cardListInMatrix;
@@ -59,6 +60,7 @@ public class SceneController : MonoBehaviour
 
     void Start()
     {
+        restartTxt.SetActive(false);
         if (GameInstance.isTutorialMode && !GameInstance.isFirstRuleSeen)
         {
             tutorialManager?.OpenTutorialPanel(0);

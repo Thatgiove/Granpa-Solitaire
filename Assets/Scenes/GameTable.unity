@@ -1346,10 +1346,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ddc449b5011104e4f9e875c7f48aa96a, type: 3}
-    m_FontSize: 203
+    m_FontSize: 170
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 300
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -3109,6 +3109,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765070147}
   m_CullTransparentMesh: 0
+--- !u!1 &778442975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 778442976}
+  - component: {fileID: 778442978}
+  - component: {fileID: 778442977}
+  m_Layer: 5
+  m_Name: restartTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &778442976
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778442975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2009382395}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000015258789, y: 196}
+  m_SizeDelta: {x: 1384.8, y: 163.6}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &778442977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778442975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9056604, g: 0.27482697, b: 0.089711644, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ddc449b5011104e4f9e875c7f48aa96a, type: 3}
+    m_FontSize: 80
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 300
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: nessuna mossa possibile... ricomincia!
+--- !u!222 &778442978
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778442975}
+  m_CullTransparentMesh: 0
 --- !u!1001 &831036684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4283,6 +4363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckButton: {fileID: 326900100}
   secondDeckPosition: {fileID: 2024559582}
+  restartTxt: {fileID: 778442975}
   Deck: []
   Deck_tmp: []
 --- !u!4 &1434369587
@@ -4423,6 +4504,7 @@ MonoBehaviour:
   m4Position: {fileID: 164251752}
   tutorialManager: {fileID: 888468295}
   deckManager: {fileID: 1434369586}
+  restartTxt: {fileID: 778442975}
   cardDeck: []
   mainCanvas: {fileID: 2009382391}
 --- !u!4 &1553658846
@@ -5066,6 +5148,7 @@ RectTransform:
   - {fileID: 326900101}
   - {fileID: 2024559585}
   - {fileID: 1434369587}
+  - {fileID: 778442976}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
