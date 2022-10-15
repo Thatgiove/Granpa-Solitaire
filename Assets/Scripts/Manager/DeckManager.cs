@@ -56,6 +56,14 @@ public class DeckManager : MonoBehaviour
                 restartTxt.SetActive(true);
             };
         }
+        //reset
+        if (Deck_tmp.Count <= 0)
+        {
+            Xindex = 0.05f;
+            offset_X = 1.5f;
+            Zindex = 0.02f;
+            offset_Z = 0.08f;
+        }
 
         //seleziono le ultime 3 carte dal mazzo principale
         CardsSelected = Deck.Where(card => !(card.isPrincipalCard && card.canPutOnTable))
@@ -167,7 +175,7 @@ public class DeckManager : MonoBehaviour
         card.transform.position = new Vector3(posX, card.transform.position.y, posZ);
 
         //Xindex per creare spazio tra le carte, Zindex per riuscire a prendere l'ultima
-        Xindex += 0.08f;
+        Xindex += 0.05f;
         Zindex += 0.15f;
     }
 
@@ -192,9 +200,9 @@ public class DeckManager : MonoBehaviour
         //quando rimuovo una carta dal mazzo 
         if (!card.isPrincipalCard && !card.isMatrix)
         {
-            Xindex -= 0.09f;
+            Xindex -= 0.05f;
+            Zindex -= 0.15f;
         }
-         
     }
 
     bool DeckIsEmpty()
