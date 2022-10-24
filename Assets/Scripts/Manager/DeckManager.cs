@@ -22,7 +22,7 @@ public class DeckManager : MonoBehaviour
     public List<Card> Deck_tmp; //il mazzetto sulla destra di quello principale
 
     float Xindex = 0.05f,
-          Zindex = 0.02f;
+          Zindex = 0.2f;
 
     float  offset_X = 1.5f ,
            offset_Z = 0.08f;
@@ -44,7 +44,7 @@ public class DeckManager : MonoBehaviour
         if (Deck.Count <= 0)
         {
             Xindex = 0.05f;
-            Zindex = 0.02f;
+            Zindex = 0.2f;
             Deck.AddRange(Deck_tmp);
             Deck_tmp.Clear();
             Deck.Reverse();
@@ -61,7 +61,7 @@ public class DeckManager : MonoBehaviour
         {
             Xindex = 0.05f;
             offset_X = 1.5f;
-            Zindex = 0.02f;
+            Zindex = 0.2f;
             offset_Z = 0.08f;
         }
 
@@ -73,13 +73,6 @@ public class DeckManager : MonoBehaviour
         //le rimuovo dal mazzo e le inverto
         CardsSelected.ForEach(cards => Deck.Remove(cards));
         CardsSelected.Reverse();
-
-
-        //l'ultima carta prima delle 3 selezionate è sempre bloccata
-        if (Deck_tmp.Count > 0)
-        {
-            Deck_tmp.Last().canDrag = false;
-        }
 
         //le aggiungo al mazzo tmp a sinistra
         Deck_tmp.AddRange(CardsSelected);
@@ -176,7 +169,7 @@ public class DeckManager : MonoBehaviour
 
         //Xindex per creare spazio tra le carte, Zindex per riuscire a prendere l'ultima
         Xindex += 0.05f;
-        Zindex += 0.15f;
+        Zindex += 0.2f;
     }
 
     public void RemoveCardFromDecks(Card card)
@@ -201,7 +194,7 @@ public class DeckManager : MonoBehaviour
         if (!card.isPrincipalCard && !card.isMatrix)
         {
             Xindex -= 0.05f;
-            Zindex -= 0.15f;
+            Zindex -= 0.2f;
         }
     }
 
