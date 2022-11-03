@@ -50,6 +50,7 @@ public class DeckManager : MonoBehaviour
             Deck.Reverse();
             SetDeckPosition();
             BlockDeck();
+            GameInstance.previousMove.deckIndex = -1;
 
             if (!CheckMatrixMoves() && !CheckDeckMoves(Deck))
             {
@@ -177,18 +178,30 @@ public class DeckManager : MonoBehaviour
         if (Deck.Contains(card))
             Deck.Remove(card);
 
+        
         else if (Deck_tmp.Contains(card))
         {
             if (Deck_tmp.Count > 1)
             {
-                if (Deck_tmp.IndexOf(card) - 1 != -1) //TODO FARE MEGLIO
+
+                if (Deck_tmp.IndexOf(card) - 1 != -1)
+                {
+                    GameInstance.previousMove.deckIndex = Deck_tmp.IndexOf(card);
                     Deck_tmp[Deck_tmp.IndexOf(card) - 1].canDrag = true;
+                } 
             }
             Deck_tmp.Remove(card);
         }
        
         if (DeckIsEmpty())
+        {
             GameManager.DeckEmpty = true;
+        }
+        else
+        {
+            GameManager.DeckEmpty = false;
+        }
+            
 
         //quando rimuovo una carta dal mazzo 
         if (!card.isPrincipalCard && !card.isMatrix)

@@ -1,14 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /*GameInstance non viene mai distrutta durante il runtime (eredita da Singleton)
  *e definisce una serie di proprietà generali a cui possono accedere tutte 
  *le altre classi
  */
-
+public class Move
+{
+    public Card card;
+    public TableManager tableManager;
+    public List<Card> cardMatrix; //se la carta è nella matrice la rimetto nel mazzetto
+    public int deckIndex;
+    public Vector3 oldPosition;
+}
 public class GameInstance : Singleton<GameInstance>
 {
     public static Texture2D[] CursorIcon = new Texture2D[3];
     public static Card principalCard;
+    public static Move previousMove = new Move();
 
     public static bool isMusicPlaying;
     public static bool isSfxPlaying;

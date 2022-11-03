@@ -8,8 +8,9 @@ public class MatrixManager : MonoBehaviour
 {
 
     SceneController _sceneController;
-    List<List<Card>> matrix;
-    List<List<Card>> fakeMatrix;
+    public List<List<Card>> matrix;
+
+    public List<Card> cardMatrix;
 
     void Start()
     {
@@ -17,7 +18,6 @@ public class MatrixManager : MonoBehaviour
         if (_sceneController)
         {
             matrix = _sceneController.matrix;
-            fakeMatrix = _sceneController.matrix;
         }
 
         TakeLastCardInMatrix(this.matrix);
@@ -36,29 +36,39 @@ public class MatrixManager : MonoBehaviour
         }
 
     }
-
+    public void PutInMatrix(Card card)
+    {
+        cardMatrix.Add(card);
+    }
     public void RemoveFromMatrix(Card cardTemplate)
     {
         //TODO -- sistemare  linq e rendere array
-        List<Card> _cardList = (matrix.Where(c => c.Contains(cardTemplate))).FirstOrDefault();
-        Card card = _cardList.Where(s => s == cardTemplate).First();
+        cardMatrix = (matrix.Where(c => c.Contains(cardTemplate))).FirstOrDefault();
+        Card card = cardMatrix.Where(s => s == cardTemplate).First();
 
-        if (_cardList.Count >= 1)
+        if (cardMatrix.Count >= 1)
         {
-            if (_cardList.IndexOf(card) - 1 != -1) //TODO FARE MEGLIO
-                _cardList[_cardList.IndexOf(card) - 1].canDrag = true; //l'indice precedente 
+            if (cardMatrix.IndexOf(card) - 1 != -1) //TODO FARE MEGLIO
+                cardMatrix[cardMatrix.IndexOf(card) - 1].canDrag = true; //l'indice precedente 
 
-            _cardList.Remove(card);
+            cardMatrix.Remove(card);
         }
-        _cardList.Remove(card);
-       
+        cardMatrix.Remove(card);
+
         if (MatrixIsEmpty())
+        {
             GameManager.MatrixEmpty = true;
+        }
+        else
+        {
+            GameManager.MatrixEmpty = false;
+        }
+           
     }
     bool MatrixIsEmpty()
     {
         bool isEmpty = true;
-        //return matrix.All(el => el.Count == 0);
+
         for (int i = 0; i < matrix.Count; i++)
         {
             if (matrix[i].Count != 0)

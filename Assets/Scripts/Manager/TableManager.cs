@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -12,6 +14,7 @@ using UnityEngine;
 ///NEI METODI CanPutInRow() E CanPutInCol()
 /// </summary>
 
+
 public class TableManager : MonoBehaviour
 {
     TutorialManager tutorialManager;
@@ -23,7 +26,7 @@ public class TableManager : MonoBehaviour
     public bool triggeringCol = false;
     public bool isMatrix = false;
 
-    public List<string> listOfCarfInTable = new List<string>();
+    public List<string> listOfCardInTable = new List<string>();
     /////////////////////////////////////////////////////////////////////////////////
 
     Card card; // la carta che collide
@@ -48,6 +51,7 @@ public class TableManager : MonoBehaviour
     {
         if (card == null) return;
 
+        //Metto in riga
         if ((card.isPrincipalCard && triggeringRow) || (Input.GetMouseButtonUp(0) && triggeringRow))
         {
             if (card.isPrincipalCard)
@@ -55,25 +59,29 @@ public class TableManager : MonoBehaviour
                 iSPrincipalCardline = true;
                 GameManager.PrincipalCardSeedList.Add(card.cardInfo.Description);
             }
-            card.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.2f);
+
+            SetPreviousMove();
+
+            card.transform.position = new Vector3(
+                gameObject.transform.position.x,
+                gameObject.transform.position.y,
+                gameObject.transform.position.z - 0.2f);
+
             card.canDrag = false;
             card.canPutOnTable = true;
 
+            //rimuove ultima card dalla matrice e dal mazzo
             if (card.canPutOnTable && card.isMatrix)
             {
-                _matrixManager.RemoveFromMatrix(card); //rimuove ultima card dalla matrice
+                _matrixManager.RemoveFromMatrix(card); 
             }
             _deckManager.RemoveCardFromDecks(card);
 
             this.UpdateInfoOfTablePosition();
-            if (GameInstance.isSfxPlaying)
+
+            if (GameInstance.isSfxPlaying && GameManager.audioSource)
             {
-                if (GameManager.audioSource)
-                    GameManager.audioSource.PlayOneShot(_clickSound);
-                else
-                {
-                    Debug.LogError("AudioSource not found");
-                }
+                GameManager.audioSource.PlayOneShot(_clickSound);
             }
 
             if (GameInstance.isTutorialMode && !GameInstance.isSecondRuleSeen && !card.isPrincipalCard)
@@ -85,14 +93,16 @@ public class TableManager : MonoBehaviour
             triggeringRow = false;
             card.GetComponent<Animator>()?.SetTrigger("CardShine");
         }
+
+        //Metto in colonna
         else if (Input.GetMouseButtonUp(0) && triggeringCol)
         {
             if (iSPrincipalCardline)
                 GameManager.PrincipalCardSeedList.Add(card.cardInfo.Description);
 
+            SetPreviousMove();
+
             //posso aggiungere alla lista di carte di quel gruppo
-
-
             //posizione della carta con offset
             card.transform.position = new Vector3(
                 gameObject.transform.position.x,
@@ -102,24 +112,16 @@ public class TableManager : MonoBehaviour
             card.canPutOnTable = true;
             card.canDrag = false;
 
-
-
             if (card.canPutOnTable && card.isMatrix)
             {
-                _matrixManager.RemoveFromMatrix(card); //rimuove ultima card dalla matrice
+                _matrixManager.RemoveFromMatrix(card);
             }
-
             _deckManager.RemoveCardFromDecks(card);
             this.UpdateInfoOfTablePosition();
 
-            if (GameInstance.isSfxPlaying)
+            if (GameInstance.isSfxPlaying && GameManager.audioSource)
             {
-                if(GameManager.audioSource)
                 GameManager.audioSource.PlayOneShot(_clickSound);
-                else
-                {
-                    Debug.LogError("AudioSource not found");
-                }
             }
 
             if (GameInstance.isTutorialMode && !GameInstance.isThirdRuleSeen)
@@ -135,7 +137,6 @@ public class TableManager : MonoBehaviour
         }
          
     }
-
 
     private void OnTriggerExit(Collider other)
     {
@@ -162,7 +163,7 @@ public class TableManager : MonoBehaviour
     {
         this.cardCounter += 1;
         this.currentCardId = card.cardInfo.Id;
-        this.listOfCarfInTable.Add(card.cardInfo.Description);
+        this.listOfCardInTable.Add(card.cardInfo.Description);
     }
 
     public bool CanPutInRow(Card _card = null)
@@ -178,5 +179,17 @@ public class TableManager : MonoBehaviour
             (iSPrincipalCardline ||
             GameManager.PrincipalCardSeedList.Count > cardCounter && //previene l'outOfBound
             GameManager.PrincipalCardSeedList[cardCounter] == _card.cardInfo.Description);  //la card description è la stessa di quella dalla principal card nella posizione del counter
+    }
+
+    void SetPreviousMove()
+    {
+        GameInstance.previousMove.card = card;
+        GameInstance.previousMove.tableManager = GetComponent<TableManager>();
+        GameInstance.previousMove.oldPosition = card.transform.localPosition;
+
+        if(card.canPutOnTable && card.isMatrix)
+        {
+            GameInstance.previousMove.cardMatrix = _matrixManager.cardMatrix;
+        }
     }
 }
