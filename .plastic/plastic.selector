@@ -1,0 +1,4 @@
+repository "granpa_solitaire/granpa_solitaire@6872027568785@cloud"
+  path "/"
+    br "/main"
+    co "/main"

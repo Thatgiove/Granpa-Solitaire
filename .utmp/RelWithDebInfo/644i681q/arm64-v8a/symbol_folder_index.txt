@@ -1,0 +1,1 @@
+C:\Users\vetre\granpa_solitaire\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\644i681q\obj\arm64-v8a

@@ -1,0 +1,5 @@
+C:/Users/vetre/granpa_solitaire/.utmp/RelWithDebInfo/644i681q/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/vetre/granpa_solitaire/.utmp/RelWithDebInfo/644i681q/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/vetre/granpa_solitaire/.utmp/RelWithDebInfo/644i681q/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/vetre/granpa_solitaire/.utmp/RelWithDebInfo/644i681q/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/vetre/granpa_solitaire/.utmp/RelWithDebInfo/644i681q/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
